@@ -1,0 +1,82 @@
+
+<%= content_for :title, "Admin Participants" %>
+<%= turbo_stream_from :admin_participants %>
+
+<div class="container px-4 mx-auto my-8">
+<div class="container table-container">
+    <h1>Participants</h1>
+    <div class="card">
+        <div class="card-header">
+            <h2>Participant List</h2>
+        </div>
+        <div class="card-body">
+            <!-- Search Form -->
+            <div class="mb-3">
+                <%= form_with url: admin_participants_path, method: :get, local: true, class: 'form-inline' do %>
+                    <div class="input-group">
+                        <input type="text" name="search" class="form-control" placeholder="Search by name or email" value="<%= params[:search] %>">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">Search</button>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @participants.each do |participant| %>
+                            <tr>
+                                <td><%= participant.name %></td>
+                                <td><%= participant.email %></td>
+                                <td><%= participant.approved? ? 'Approved' : 'Pending' %></td>
+                                <td>
+                                    <% unless participant.approved %>
+                                        <%= button_to 'Approve', approve_admin_participant_path(participant), 
+                                            method: :patch, 
+                                            data: { confirm: 'Are you sure you want to approve this participant?' }, 
+                                            class: 'btn btn-success btn-sm' %>
+                                    <% end %>
+
+                                    <% if participant.approved %>
+                                        <%= button_to 'Reject', reject_admin_participant_path(participant), 
+                                            method: :patch, 
+                                            data: { confirm: 'Are you sure you want to reject this participant?' }, 
+                                            class: 'btn btn-danger btn-sm' %>
+                                    <% end %>
+                                    </td>
+                                    
+                                <td>
+                                    <% if participant.approved %>
+
+
+    <%= button_to 'Send Badge Email', send_badge_email_admin_participant_path(participant), method: :post %>
+  </div>
+
+
+                                <% end %>
+
+                                    </td>
+                                    <td>
+                                    <%= link_to 'View', participant_path(participant), class: "btn btn-info btn-sm" %>
+                                </td>
+                            </tr>
+                        <% end %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

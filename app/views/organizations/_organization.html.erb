@@ -1,0 +1,17 @@
+<div id="<%= dom_id organization %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Name</p>
+    <%= organization.name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Location</p>
+    <%= organization.location %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Allowed participant number</p>
+    <%= organization.allowed_participant_number %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this organization", organization, class: "btn btn-secondary" %>
+  <% end %>
+</div>

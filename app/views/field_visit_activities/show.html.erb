@@ -1,0 +1,17 @@
+<%= content_for :title, "Field Visit Activities ##{@field_visit_activity.id}" %>
+<%= turbo_stream_from @field_visit_activity %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="h3">
+      <%= link_to "Field Visit Activities", field_visit_activities_path, class: "text-black dark:text-white" %>
+      <span class="text-gray-400 font-light mx-2">\</span>
+      Field Visit Activity #<%= @field_visit_activity.id %>
+    </h1>
+    <%= link_to t("edit"), edit_field_visit_activity_path(@field_visit_activity), class: "btn btn-secondary" %>
+  </div>
+
+  <div class="p-8 bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded shadow">
+    <%= render @field_visit_activity %>
+  </div>
+</div>

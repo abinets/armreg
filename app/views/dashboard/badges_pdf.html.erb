@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Badges PDF</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .badges-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+    .badge {
+      border: 2px solid #4CAF50;
+      border-radius: 10px;
+      padding: 20px;
+      width: 1240px; /* Fixed width */
+      height: 1754px; /* Fixed height */
+      background: linear-gradient(to bottom right, #e2f0cb, #a8d8b9);
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .badge-header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px;
+      border-radius: 8px 8px 0 0;
+    }
+    .badge-body {
+      margin-top: 10px;
+    }
+    .qr-code img {
+      width: 100px;
+      height: 100px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Approved Participants Badges</h1>
+  <div class="badges-container">
+    <% @participants.each do |participant| %>
+      <% if participant.approved %>
+        <div class="badge">
+          <div class="badge-header">
+            <h2>ARM 2026</h2>
+            <h3>26th Annual Review Meeting</h3>
+            <p><strong>Organized by:</strong> Ministry of Health</p>
+            <p><strong>Date:</strong> October 20, 2024</p>
+          </div>
+          <div class="badge-body">
+            <h3><%= participant.name %></h3>
+            <p><strong>Organization:</strong> <%= participant.organization %></p>
+            <p><strong>Participation Type:</strong> <%= participant.participant_type %></p>
+            <p><strong>Unique Serial Number:</strong> <%= participant.serial_number %></p>
+          </div>
+          <div class="qr-code">
+          <img src="https://api.qrserver.com/v1/create-qr-code/?data=<%= participant.serial_number %>&size=100x100" alt="QR Code" />
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</body>
+</html>

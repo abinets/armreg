@@ -1,0 +1,161 @@
+<% if current_user.admin? %>
+<%= content_for :title, "Participants" %>
+<%= turbo_stream_from :participants %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+    <h1 class="h3">Participants</h1>
+    <div>
+      <%= link_to t("scaffold.new.title", model: "Participant"), new_participant_path, class: "btn btn-secondary" %>
+
+      <%= link_to 'Export Participants', export_participants_path(format: :xlsx), class: 'btn btn-primary' %>
+      <%= link_to 'Import Participants', import_participants_path, class: 'btn btn-primary' %>
+    </div>
+     
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+        <%= sortable @participants, :name, "Name", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :organization_id, "Organization", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :registration_date, "Registration date", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :location, "Location", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :position, "Position", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :email, "Email", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :telephone_number, "Telephone number", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :participant_type_id, "Participant type", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :group_id, "Group", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :emergency_contact_name, "Emergency contact name", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :emergency_contact_number, "Emergency contact number", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :side_event_id, "Side event", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :meal_options, "Meal options", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :resourceMaterial_take, "Resource material take", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :accommodation_required, "Accommodation required", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :notes, "Notes", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+      </div>
+    </div>
+
+
+  </div>
+
+  <!-- Filter Form -->
+  <div class="mb-4">
+    <%= form_with url: participants_path, method: :get, local: true do %>
+      <div class="form-row">
+        <div class="form-group col-md-4">
+          <%= label_tag :name, "Name", class: "form-label" %>
+          <%= text_field_tag :name, params[:name], class: "form-control" %>
+        </div>
+        <div class="form-group col-md-4">
+          <%= label_tag :organization_id, "Organization", class: "form-label" %>
+          <%= text_field_tag :organization_id, params[:organization_id], class: "form-control" %>
+        </div>
+        <div class="form-group col-md-4">
+          <%= label_tag :location, "Location", class: "form-label" %>
+          <%= text_field_tag :location, params[:location], class: "form-control" %>
+        </div>
+      </div>
+      <%= submit_tag "Filter", class: "btn btn-primary" %>
+      <%= link_to "Reset", participants_path, class: "btn btn-secondary ml-2" %>
+    <% end %>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Roll Number</th>
+          <th>Name</th>
+          <th>Organization</th>
+          <th>Registration Date</th>
+          <th>Location</th>
+          <th>Position</th>
+          <th>Email</th>
+          <th>Telephone Number</th>
+          <th>Participant Type</th>
+          <th>Group</th>
+          <th>Emergency Contact Name</th>
+          <th>Emergency Contact Number</th>
+          <th>Side Event</th>
+          <th>Meal Options</th>
+          <th>Resource Material Take</th>
+          <th>Accommodation Required</th>
+          <th>Notes</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @participants.each_with_index do |participant, index| %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= participant.name %></td>
+            <td><%= participant.organization_name %></td>
+            <td><%= participant.registration_date %></td>
+            <td><%= participant.location %></td>
+            <td><%= participant.position %></td>
+            <td><%= participant.email %></td>
+            <td><%= participant.telephone_number %></td>
+            <td><%= participant.participant_type_name %></td>
+            <td><%= participant.group_name %></td>
+            <td><%= participant.emergency_contact_name %></td>
+            <td><%= participant.emergency_contact_number %></td>
+            <td><%= participant.side_event_name %></td>
+            <td><%= participant.meal_options %></td>
+            <td><%= participant.resourceMaterial_take %></td>
+            <td><%= participant.accommodation_required %></td>
+            <td><%= participant.notes %></td>
+            <td>
+              <%= link_to 'Edit', edit_participant_path(participant), class: 'btn btn-sm btn-warning' %>
+              <%= link_to 'Show', participant, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-sm btn-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="hidden text-center only:block">
+    <p class="mb-4 h3">Create your first Participant</p>
+    <%= link_to t("scaffold.new.title", model: "Participant"), new_participant_path, class: "btn btn-primary" %>
+  </div>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>
+
+<% else %>
+<div class="container my-4">
+  <h2 class="text-center">Participant Registration</h2>
+  <h3 class="text-center">Welcome, <strong><%= current_user.name %></strong>!</h3>
+  
+  <ul class="list-unstyled mt-4">
+    <% if Participant.where(user_id: current_user.id).exists? %>
+      <% Participant.where(user_id: current_user.id).each do |participant| %>
+        <div class="mb-2">
+          <%= link_to "View Your information as a Participant ", participant_path(participant), class: "btn btn-info" %>
+        </div>
+      <% end %>
+    <% else %>
+      <h2 class="text-warning">No Participant Information Found</h2>
+      <p>You are not yet registered as a participant. Would you like to create one?</p>
+      <%= link_to t("scaffold.new.title", model: "Participant"), new_participant_path(name: current_user.name), class: "btn btn-secondary" %>
+    <% end %>
+  </ul>
+ <% if !Participant.where(user_id: current_user.id, approved: true).exists? %>
+  <% if Participant.where(user_id: current_user.id).exists? %>
+    <p> Your registration is not yet approved, if the ARM Coordinator approved your registration you will recieve confirmation email, keep in touch!</p>
+    <small>Notice that onece your registration is approved, you can't edit your participation information</small>   
+    <% else %>
+    <p> Sorry, We can't provide information about your approval and badge generation unless you got registered!</p>
+
+    <% end %>
+    <% else %>
+  <p> Congrats, Your registration is approved, You will take your badge soon, we will send you email. </p>
+  <p> Hotel is not yet allocated to you, If the Coordinators allocate a hotel room for you, You will get the information via email and here </p>
+<% end %>
+</div>
+
+  <% end %>

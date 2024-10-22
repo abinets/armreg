@@ -1,0 +1,33 @@
+<div id="<%= dom_id field_visit_activity %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Name</p>
+    <%= field_visit_activity.name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Description</p>
+    <%= field_visit_activity.description %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Field visit area</p>
+    <%= field_visit_activity.field_visit_area_name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Scheduled date</p>
+    <%= field_visit_activity.scheduled_date %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Duration</p>
+    <%= field_visit_activity.duration %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Max participants</p>
+    <%= field_visit_activity.max_participants %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Notes</p>
+    <%= field_visit_activity.notes %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this field visit activity", field_visit_activity, class: "btn btn-secondary" %>
+  <% end %>
+</div>

@@ -1,0 +1,13 @@
+<div id="<%= dom_id participant_type %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Type name</p>
+    <%= participant_type.type_name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Description</p>
+    <%= participant_type.description %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this participant type", participant_type, class: "btn btn-secondary" %>
+  <% end %>
+</div>

@@ -1,0 +1,63 @@
+<%= form_with(model: @room_assignment, local: true) do |form| %>
+  <% if @room_assignment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@room_assignment.errors.count, "error") %> prohibited this room assignment from being saved:</h2>
+      <ul>
+        <% @room_assignment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+      <h6>
+    Selected Room:
+    <% if @room_assignment.room_id.present? %>
+      <% room = Room.find(@room_assignment.room_id) %> 
+      <%= "#{room.room_number} at #{room.hotel.name if room.hotel.present?}" %> 
+    <% else %>
+      None
+    <% end %>
+  </h6>
+
+  <div class="field">
+    <%= form.label :participant_id %>
+    <%= form.collection_select :participant_id, @participants, :id, :name, { selected: @room_assignment.participant_id }, prompt: "Select a Participant" %>
+  </div>
+
+  <div class="field">
+    <%= form.hidden_field :room_id, value: @room_assignment.room_id %>
+
+  
+    </div>
+
+  <div class="field">
+    <%= form.label :arrived_date %>
+    <%= form.date_field :arrived_date , class: "form-control"%>
+  </div>
+
+  <div class="field">
+    <%= form.label :checkin_date %>
+    <%= form.date_field :checkin_date , class: "form-control" %>
+  </div>
+
+  <div class="field">
+    <%= form.label :checkout_date %>
+    <%= form.date_field :checkout_date , class: "form-control"%>
+  </div>
+
+  <div class="field">
+    <%= form.label :notes %>
+    <%= form.text_area :notes,  class: "form-control" %>
+  </div>
+
+  <div>
+  <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
+
+  <% if form.object.new_record? %>
+    <%= link_to t("cancel"), rooms_path, class: "btn btn-secondary" %>
+  <% else %>
+    <%= link_to t("cancel"), room_path(@participant), class: "btn btn-secondary" %>
+  <% end %>
+</div>
+<% end %>

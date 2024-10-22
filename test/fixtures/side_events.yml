@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event_name: MyString
+  description: MyString
+  startdate: 2024-10-05
+  enddate: 2024-10-05
+  venue: MyString
+
+two:
+  event_name: MyString
+  description: MyString
+  startdate: 2024-10-05
+  enddate: 2024-10-05
+  venue: MyString

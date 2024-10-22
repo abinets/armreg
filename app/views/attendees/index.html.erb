@@ -1,0 +1,35 @@
+<%= content_for :title, "Attendees" %>
+<%= turbo_stream_from :attendees %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">Attendees</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+        <%= sortable @attendees, :full_name, "Full name", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @attendees, :address, "Address", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @attendees, :org, "Org", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @attendees, :days_to_attend, "Days to attend", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+      </div>
+    </div>
+
+    <%= link_to t("scaffold.new.title", model: "Attendee"), new_attendee_path, class: "btn btn-secondary" %>
+  </div>
+
+  <%= tag.div id: ("attendees" if first_page?), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
+    <%= render partial: "attendees/attendee", collection: @attendees, as: :attendee, cached: true %>
+
+    <div class="hidden only:block text-center">
+      <p class="mb-4 h3">Create your first Attendee</p>
+      <%= link_to t("scaffold.new.title", model: "Attendee"), new_attendee_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,33 @@
+<div id="<%= dom_id room_assignment %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Participant</p>
+    <%= room_assignment.participant_name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Room</p>
+    <%= room_assignment.hotel_name  %>  ,
+     <%= room_assignment.room_name %>      
+    
+
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Arrived date</p>
+    <%= room_assignment.arrived_date %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Checkin date</p>
+    <%= room_assignment.checkin_date %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Checkout date</p>
+    <%= room_assignment.checkout_date %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Notes</p>
+    <%= room_assignment.notes %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this room assignment", room_assignment, class: "btn btn-secondary" %>
+  <% end %>
+</div>
+

@@ -1,0 +1,28 @@
+<%= form_with(model: hotel) do |form| %>
+  <%= render "error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :location %>
+    <%= form.text_field :location, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :room_numbers %>
+    <%= form.number_field :room_numbers, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
+
+    <% if form.object.new_record? %>
+      <%= link_to t("cancel"), hotels_path, class: "btn btn-secondary" %>
+    <% else %>
+      <%= link_to t("cancel"), hotel_path(@hotel), class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+<% end %>

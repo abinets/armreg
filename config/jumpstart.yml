@@ -1,0 +1,22 @@
+---
+application_name: ARM _ Registration
+business_name: Ministry Of Health
+business_address: asa
+domain: example.com
+support_email: support@example.com
+default_from_email: My App <no-reply@example.com>
+background_job_processor: async
+email_provider: 
+personal_accounts: true
+apns: true
+fcm: true
+integrations:
+omniauth_providers:
+- google-oauth2
+payment_processors:
+multitenancy:
+gems:
+- acts_as_tenant
+- refer
+- oj
+- whenever

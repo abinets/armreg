@@ -1,0 +1,33 @@
+<%= content_for :title, "Participant Types" %>
+<%= turbo_stream_from :participant_types %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">Participant Types</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+        <%= sortable @participant_types, :type_name, "Type name", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participant_types, :description, "Description", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+      </div>
+    </div>
+
+    <%= link_to t("scaffold.new.title", model: "Participant Type"), new_participant_type_path, class: "btn btn-secondary" %>
+  </div>
+
+  <%= tag.div id: ("participant_types" if first_page?), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
+    <%= render partial: "participant_types/participant_type", collection: @participant_types, as: :participant_type, cached: true %>
+
+    <div class="hidden only:block text-center">
+      <p class="mb-4 h3">Create your first Participant Type</p>
+      <%= link_to t("scaffold.new.title", model: "Participant Type"), new_participant_type_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

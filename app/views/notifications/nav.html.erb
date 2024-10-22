@@ -7,6 +7,54 @@
 
   <div class="hidden p-4 text-center only:block">
     <div class="mb-2"><%= t("notifications.empty") %></div>
-    <div class="text-gray-600 dark:text-gray-300/75"><%= t("notifications.empty_description") %></div>
+    
+    
+    </div>
+
+    <div class="overflow-hidden bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded shadow-md">
+    <%= link_to  'Profile', edit_user_registration_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3' %>
+       <!--
+<div class="px-6 py-3 text-xs font-bold text-gray-800 uppercase bg-white dark:text-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">Accounts</div>
+-->
+    <% if Current.other_accounts.any? %>
+      <div class="px-6 py-3 text-xs font-bold text-gray-800 uppercase bg-white dark:text-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">Switch Account</div>
+      <% current_user.accounts.order(name: :asc).where.not(id: current_account.id).each do |account| %>
+        <%= switch_account_button account, data: { controller: :accounts, action: "ajax:success->accounts#reconnect" }, class: 'w-full text-left text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3 cursor-pointer' %>
+      <% end %>
+    <% end %>
+    <% if current_user.admin? %>
+      <div class="px-6 py-3 text-xs font-bold text-gray-800 uppercase bg-white dark:text-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">Admin</div>
+      <%= link_to 'Sidekiq', admin_sidekiq_web_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', target: :_blank, data: { turbo: false } if defined?(::Sidekiq) %>
+
+      <% end %>
+    <% if !current_user.admin? %>
+      <div class="px-6 py-3 text-xs font-bold text-gray-800 uppercase bg-white dark:text-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">ARM Registration</div>
+       
+      <%= link_to 'Participant Info ', participants_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: participants_path %>
+      <%= link_to 'Badge ', participants_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: participants_path %>
+      <%= link_to 'ARM Resources ', participants_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: participants_path %>
+      <%= link_to 'Virtual Attendance Registration ', participants_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: participants_path %>
+
+      <% end %>
+       <% if current_user.admin? %>
+       <%= link_to 'Participants ', participants_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: participants_path %>
+        <%= link_to 'Manage Participant', admin_participants_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: admin_participants_path %>
+        <%= link_to 'Room Assignment', room_assignments_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: room_assignments_path %>
+
+        <%= link_to 'Hotels', hotels_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: hotels_path %>
+        <%= link_to 'Rooms', rooms_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: rooms_path %>
+        <%= link_to 'Organizations', organizations_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: organizations_path %>
+        <%= link_to 'Participant Types', participant_types_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: participant_types_path %>
+        <%= link_to 'Groups', groups_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: groups_path %>
+        <%= link_to 'Field Visit Areas', field_visit_areas_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: field_visit_areas_path %>
+        <%= link_to 'Field Visit Activities', field_visit_activities_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: field_visit_activities_path %>
+        <%= link_to 'Side Events', side_events_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', starts_with: side_events_path %>
+
+        
+
+
+      <% end %>
+    <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'w-full text-left font-medium cursor-pointer px-6 py-3 border-t border-gray-200 dark:border-gray-700 text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap' %>
+  </div>
   </div>
 <% end %>

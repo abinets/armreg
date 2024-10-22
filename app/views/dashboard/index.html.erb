@@ -1,0 +1,60 @@
+
+<div class="badges-container">
+  <% @participants.sort_by(&:name).each do |participant| %>
+    <% if participant.approved %>
+      <div class="badge">
+      <div>
+   <br /> <br />   <br />  <br /> <br />   <br /> <br /> <br /> <br /> <br /> 
+       </div>
+
+        <div class="badge-body">
+          <h2 style="text-align: center; color:brown; margin: 0; font-weight: bold;"><%= participant.name %></h2>
+         <br /> <br /> 
+           <p style="text-align: center; margin: 0;  font-size: 21px;  color: green;"><%= participant.position %> | <strong><%= participant.organization.name %></strong> </p>
+           <br />  
+           <p style="text-align: center; margin: 0;  font-size: 21px;  color: blue; font-weight: bold;"><strong>( <%= participant.participant_type_name %> )</strong></p>         
+           <br />  <br />
+           </div>
+        <div class="qr-code">
+        <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=<%= participant.serial_number %>&size=100x100" alt="QR Code" />
+
+        </div>
+        <div>
+        <br /><p style="text-align: center;"> <strong style="color:brown; margin: 0;"><%= participant.serial_number %></strong></p>
+        <br /><br /><br /> 
+        
+
+        
+        <div class="container">
+        <div class="row justify-content-left">
+          <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+            <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+              <tr>
+                <td style="border: 0px solid black; width: 150px; overflow-wrap: break-word;  white-space: normal;">
+                  <strong style="color: green; margin: 0;">
+                    <%= participant.group_name %>
+                  </strong>
+                </td>
+                <td style="border: 3px dotted #2a7ab1; width: 140px; overflow-wrap: break-word;  white-space: normal;">
+                  <strong style="color: brown; margin: 0;">
+                    <%= participant.side_event_name %>
+                  </strong>
+                </td>
+                <td style="border: 0px solid black; width: 150px; overflow-wrap: break-word; white-space: normal;">
+                  <strong style="color: red; margin: 0;">
+                    <%= participant.group_name %>
+                  </strong>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+
+
+
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -10,6 +10,17 @@
     @apply text-gray-900;
   }
 }
+body {
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+}
+
+nav {
+  transition: transform 0.3s ease;
+}
+
+.flex-grow {
+  transition: margin-left 0.3s ease;
+}
 
 @media (min-width: 1024px) {
   .nav-link {

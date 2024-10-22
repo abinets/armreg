@@ -34,7 +34,8 @@ as well as a link to its edit page.
       t("administrate.actions.destroy"),
       [namespace, page.resource],
       class: "button button--danger",
-      data: { turbo_method: :delete, turbo_confirm: t("administrate.actions.confirm") }
+      method: :delete,
+      data: { confirm: t("administrate.actions.confirm") }
     ) if accessible_action?(page.resource, :destroy) %>
   </div>
 </header>
@@ -55,7 +56,8 @@ as well as a link to its edit page.
           ) %>
           </dt>
 
-          <dd class="attribute-data attribute-data--<%= attribute.html_class %>"><%= render_field attribute, page: page %></dd>
+          <dd class="attribute-data attribute-data--<%=attribute.html_class%>"
+              ><%= render_field attribute, page: page %></dd>
         <% end %>
       </fieldset>
     <% end %>

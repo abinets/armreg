@@ -1,0 +1,13 @@
+<div id="<%= dom_id group %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Name</p>
+    <%= group.name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Description</p>
+    <%= group.description %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this group", group, class: "btn btn-secondary" %>
+  <% end %>
+</div>

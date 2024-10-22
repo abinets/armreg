@@ -6,11 +6,21 @@ ruby file: ".ruby-version"
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem "rails", "~> 7.2.0"
 
+
+gem 'wicked_pdf'
+gem 'wkhtmltopdf-binary'
+
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails", ">= 3.4.1"
 
+gem 'axlsx', '~> 3.0.0.pre'
+
+gem 'roo'
+
 # Use postgresql as the database for Active Record
 gem "pg"
+# gem "administrate", github: "excid3/administrate"
+# gem 'administrate', '~> 0.20.1'
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", "~> 6.0"
@@ -23,6 +33,8 @@ gem "stimulus-rails", "~> 1.0", ">= 1.0.2"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
 gem "jbuilder", "~> 2.12"
+
+gem 'jquery-rails'
 
 # Use Redis adapter to run Action Cable in production
 gem "redis", "~> 5.1"
@@ -71,3 +83,4 @@ eval_gemfile "Gemfile.jumpstart"
 
 # We recommend using strong migrations when your app is in production
 # gem "strong_migrations"
+

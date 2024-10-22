@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  field_visit_area: one
+  scheduled_date: 2024-10-05
+  duration: 1.5
+  max_participants: 1
+  notes: MyText
+
+two:
+  name: MyString
+  description: MyText
+  field_visit_area: two
+  scheduled_date: 2024-10-05
+  duration: 1.5
+  max_participants: 1
+  notes: MyText

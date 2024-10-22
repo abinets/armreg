@@ -1,8 +1,155 @@
+<% if current_user.admin? %>
 <div class="container mx-auto p-4">
   <div class="my-8">
     <h1><%= t(".title") %></h1>
+    
+    <p>ARM Registration system Dashboard</p>
 
-    <p class="mb-2">This is the homepage for logged in users.</p>
-    <p>You can customize this page in <code>app/views/dashboard/show.html.erb</code></p>
+
+  </div>
+
+  <button onclick="window.print();">Print this page</button>
+
+<div class="dashboard-panels">
+  <div class="panel panel-registered">
+    <h2>Total Registered Participants</h2>
+    <p><%= @total_participants %></p>
+  </div>
+
+  <div class="panel panel-approved">
+    <h2>Total Approved Participants</h2>
+    <p><%= @total_approved_participants %></p>
+  </div>
+
+  <div class="panel panel-rooms">
+    <h2>Total Rooms</h2>
+    <p><%= @total_rooms %></p>
+  </div>
+
+  <div class="panel panel-allocated">
+    <h2>Allocated Rooms</h2>
+    <p><%= @allocated_rooms %></p>
+  </div>
+
+  <div class="panel panel-free">
+    <h2>Free Rooms</h2>
+    <p><%= @free_rooms %></p>
   </div>
 </div>
+
+<h2>Charts</h2>
+<div class="charts-container">
+  <div class="chart-column">
+    <h3>Room Allocation Chart</h3>
+    <canvas id="roomChart" width="500" height="250"></canvas>
+  </div>
+
+  <div class="chart-column">
+    <h3>Participant Approval Chart</h3>
+    <canvas id="participantChart" width="500" height="250"></canvas>
+  </div>
+</div>
+
+<script>
+  // Chart.js configuration remains the same
+  const roomChartCtx = document.getElementById('roomChart').getContext('2d');
+  const participantChartCtx = document.getElementById('participantChart').getContext('2d');
+
+  const roomChart = new Chart(roomChartCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Total Rooms', 'Allocated Rooms', 'Free Rooms'],
+      datasets: [{
+        label: 'Room Statistics',
+        data: [<%= @total_rooms %>, <%= @allocated_rooms %>, <%= @free_rooms %>],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 99, 132, 0.2)',
+          'rgba(54, 162, 235, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+  const participantChart = new Chart(participantChartCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Total Participants', 'Approved Participants', 'Unapproved Participants'],
+      datasets: [{
+        label: 'Participant Statistics',
+        data: [<%= @total_participants %>, <%= @total_approved_participants %>, <%= @total_participants - @total_approved_participants %>],
+        backgroundColor: [
+          'rgba(75, 192, 192, 0.2)',
+          'rgba(255, 159, 64, 0.2)',
+          'rgba(255, 206, 86, 0.2)'
+        ],
+        borderColor: [
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 159, 64, 1)',
+          'rgba(255, 206, 86, 1)'
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+</script>
+
+
+</div>
+
+
+</div>
+
+<% else %>
+<div class="container my-4">
+  <h2 class="text-center">Participant Registration</h2>
+  <h3 class="text-center">Welcome, <strong><%= current_user.name %></strong>!</h3>
+  
+  <ul class="list-unstyled mt-4">
+    <% if Participant.where(user_id: current_user.id).exists? %>
+      <% Participant.where(user_id: current_user.id).each do |participant| %>
+        <div class="mb-2">
+          <%= link_to "View Your information as a Participant ", participant_path(participant), class: "btn btn-info" %>
+        </div>
+      <% end %>
+    <% else %>
+      <h2 class="text-warning">No Participant Information Found</h2>
+      <p>You are not yet registered as a participant. Would you like to create one?</p>
+      <%= link_to t("scaffold.new.title", model: "Participant"), new_participant_path(name: current_user.name), class: "btn btn-secondary" %>
+    <% end %>
+  </ul>
+ <% if !Participant.where(user_id: current_user.id, approved: true).exists? %>
+  <% if Participant.where(user_id: current_user.id).exists? %>
+    <p> Your registration is not yet approved, if the ARM Coordinator approved your registration you will recieve confirmation email, keep in touch!</p>
+    <small>Notice that onece your registration is approved, you can't edit your participation information</small>   
+    <% else %>
+    <p> Sorry, We can't provide information about your participation approval and badge generation unless you got registered!</p>
+
+    <% end %>
+    <% else %>
+  <p> Congrats, Your registration is approved, You will take your badge soon, we will send you email. </p>
+  <p> Hotel is not yet allocated to you, If the Coordinators allocate a hotel room for you, You will get the information via email and here </p>
+<% end %>
+</div>
+
+  <% end %>

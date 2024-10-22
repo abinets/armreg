@@ -1,0 +1,34 @@
+<%= content_for :title, "Organizations" %>
+<%= turbo_stream_from :organizations %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">Organizations</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+        <%= sortable @organizations, :name, "Name", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @organizations, :location, "Location", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @organizations, :allowed_participant_number, "Allowed participant number", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+      </div>
+    </div>
+
+    <%= link_to t("scaffold.new.title", model: "Organization"), new_organization_path, class: "btn btn-secondary" %>
+  </div>
+
+  <%= tag.div id: ("organizations" if first_page?), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
+    <%= render partial: "organizations/organization", collection: @organizations, as: :organization, cached: true %>
+
+    <div class="hidden only:block text-center">
+      <p class="mb-4 h3">Create your first Organization</p>
+      <%= link_to t("scaffold.new.title", model: "Organization"), new_organization_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

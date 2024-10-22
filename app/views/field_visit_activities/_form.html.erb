@@ -1,0 +1,49 @@
+<%= form_with(model: field_visit_activity) do |form| %>
+  <%= render "error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :description %>
+    <%= form.text_area :description, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :field_visit_area_id %>
+   <%= form.collection_select :field_visit_area_id, @field_visit_areas, :id, :name, prompt: "Select a Field Visit" %>
+
+  </div>
+
+  <div class="form-group">
+    <%= form.label :scheduled_date %>
+    <%= form.date_field :scheduled_date, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :duration %>
+    <%= form.text_field :duration, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :max_participants %>
+    <%= form.number_field :max_participants, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :notes %>
+    <%= form.text_area :notes, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
+
+    <% if form.object.new_record? %>
+      <%= link_to t("cancel"), field_visit_activities_path, class: "btn btn-secondary" %>
+    <% else %>
+      <%= link_to t("cancel"), field_visit_activity_path(@field_visit_activity), class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+<% end %>

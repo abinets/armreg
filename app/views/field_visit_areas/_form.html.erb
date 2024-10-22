@@ -1,0 +1,28 @@
+<%= form_with(model: field_visit_area) do |form| %>
+  <%= render "error_messages", resource: form.object %>
+
+  <div class="form-group">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :distance_from_arm_venue %>
+    <%= form.text_field :distance_from_arm_venue, class: "form-control" %>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :note %>
+    <%= form.text_field :note, class: "form-control" %>
+  </div>
+
+  <div>
+    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
+
+    <% if form.object.new_record? %>
+      <%= link_to t("cancel"), field_visit_areas_path, class: "btn btn-secondary" %>
+    <% else %>
+      <%= link_to t("cancel"), field_visit_area_path(@field_visit_area), class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+<% end %>

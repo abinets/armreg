@@ -1,5 +1,52 @@
 # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 Rails.application.routes.draw do
+
+  # resources :room_assignments do
+  #   member do
+  #     delete :unassign
+  #     post :assign
+  #   end
+  # end
+ 
+
+  resources :room_assignments do
+    member do
+      patch :unassign 
+      patch :assign 
+    end
+  end
+
+  
+  resources :participants do
+    collection do
+      get :export, defaults: { format: 'xlsx' }
+      post :import
+      patch :update_visit_day_1 # Custom route for updating visit_day_1
+      
+    end
+  end
+
+  resources :side_events
+  resources :field_visit_activities
+  resources :field_visit_areas
+  resources :groups
+  resources :participant_types
+  resources :organizations
+  resources :rooms do
+    resources :room_assignments 
+  end
+  resources :hotels
+  resources :attendees
+
+  resources :admin_participants do
+    member do
+      patch :approve
+      patch :reject   
+      post :send_badge_email
+    end
+  end
+
+
   draw :accounts
   draw :api
   draw :billing
@@ -11,6 +58,7 @@ Rails.application.routes.draw do
     draw :admin
   end
 
+
   resources :announcements, only: [:index, :show]
 
   namespace :action_text do
@@ -19,6 +67,17 @@ Rails.application.routes.draw do
         get :patterns
       end
     end
+  end
+  namespace :admin do
+    resources :participants do
+      member do
+        patch :approve
+        patch :reject
+        patch :mark_attended
+      end
+    end
+
+    
   end
 
   scope controller: :static do
@@ -33,9 +92,14 @@ Rails.application.routes.draw do
 
   authenticated :user do
     root to: "dashboard#show", as: :user_root
+    get 'dashboard/badges_pdf', to: 'dashboard#badges_pdf', as: 'badges_pdf'
+    get 'dashboard/index', to: 'dashboard#index', as: 'index'
+
     # Alternate route to use if logged in users should still see public root
     # get "/dashboard", to: "dashboard#show", as: :user_root
   end
+
+  
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

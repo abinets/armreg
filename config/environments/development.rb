@@ -81,8 +81,21 @@ Rails.application.configure do
   # config.active_record.strict_loading_by_default = true
 
   # Deliver emails to Mailbin for development
-  config.action_mailer.delivery_method = :mailbin
 
+
+  # config.action_mailer.delivery_method = :mailbin
+
+config.action_mailer.delivery_method = :smtp
+config.action_mailer.smtp_settings = {
+ address:              'smtp.gmail.com',
+ port:                 587,
+ domain:               'google.com',
+ user_name:            'abnios@gmail.com',
+ password:             'rfpctxraekramjbb',
+ authentication:       'plain',
+ enable_starttls_auto: true,
+ open_timeout:         5,
+ read_timeout:         5 }
   # Allow accessing localhost on any domain. Important for testing multi-tenant apps.
   config.hosts = nil
 

@@ -1,0 +1,17 @@
+<div id="<%= dom_id hotel %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Name</p>
+    <%= hotel.name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Location</p>
+    <%= hotel.location %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Room numbers</p>
+    <%= hotel.room_numbers %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this hotel", hotel, class: "btn btn-secondary" %>
+  <% end %>
+</div>

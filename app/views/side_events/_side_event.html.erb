@@ -1,0 +1,25 @@
+<div id="<%= dom_id side_event %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Event name</p>
+    <%= side_event.event_name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Description</p>
+    <%= side_event.description %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Startdate</p>
+    <%= side_event.startdate %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Enddate</p>
+    <%= side_event.enddate %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Venue</p>
+    <%= side_event.venue %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this side event", side_event, class: "btn btn-secondary" %>
+  <% end %>
+</div>

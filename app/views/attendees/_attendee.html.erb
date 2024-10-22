@@ -1,0 +1,21 @@
+<div id="<%= dom_id attendee %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Full name</p>
+    <%= attendee.full_name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Address</p>
+    <%= attendee.address %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Org</p>
+    <%= attendee.org %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Days to attend</p>
+    <%= attendee.days_to_attend %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this attendee", attendee, class: "btn btn-secondary" %>
+  <% end %>
+</div>

@@ -1,0 +1,37 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  organization: one
+  registration_date: 2024-10-05
+  location: MyString
+  position: MyString
+  email: MyString
+  telephone_number: MyString
+  participant_type: one
+  group: one
+  emergency_contact_name: MyString
+  emergency_contact_number: MyString
+  side_event: one
+  meal_options: MyString
+  resourceMaterial_take: false
+  accommodation_required: false
+  notes: MyText
+
+two:
+  name: MyString
+  organization: two
+  registration_date: 2024-10-05
+  location: MyString
+  position: MyString
+  email: MyString
+  telephone_number: MyString
+  participant_type: two
+  group: two
+  emergency_contact_name: MyString
+  emergency_contact_number: MyString
+  side_event: two
+  meal_options: MyString
+  resourceMaterial_take: false
+  accommodation_required: false
+  notes: MyText

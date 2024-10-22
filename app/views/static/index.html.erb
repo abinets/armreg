@@ -1,10 +1,22 @@
 <div class="py-32 max-w-2xl m-auto text-center flex flex-col items-center justify-center">
-  <h1 class="mb-2">Welcome to Jumpstart</h1>
-  <p class="mb-6 text-gray-700 dark:text-gray-200 leading-normal text-xl">Jumpstart is the perfect starting point for your next Ruby on Rails app. Skip the boilerplate setup and build your app faster.</p>
+  <div class="logo-container">
+  <%= image_tag 'logo2.svg', alt: 'Logo', class: 'logo' %>
+</div>
+
+  <h1 class="mb-2">Welcome to 26th ARM 2024 Registration</h1>
+  <p class="mb-6 text-gray-700 dark:text-gray-200 leading-normal text-xl">We’re glad to have you here for  Participation Registration</p>
+   
+        
   <% if Rails.env.development? %>
     <div class="flex flex-col items-center md:flex-row">
-      <%= link_to "Configure Jumpstart", jumpstart_path, data: { turbo: false }, class: "btn btn-primary lg:mr-4 mr-0 lg:mb-0 mb-4" %>
-      <%= link_to "Read the Docs", jumpstart.docs_path, target: :_blank, data: { turbo: false }, class: "btn btn-secondary btn-outline lg:mr-4 mr-0 lg:mb-0 mb-4" %>
-    </div>
+       
+        <%= link_to "Log In", new_user_session_path, class: 'nav-link' %>
+        <%= link_to "Sign Up", new_user_registration_path, class: 'btn btn-primary' %>
+    
+
+      </div>
+      <a href="https://arm.moh.gov.et/" target="_blank" data-turbo="false" class="btn btn-secondary btn-outline lg:mr-4 mr-0 lg:mb-0 mb-4">
+      Visit ARM website
+  </a>
   <% end %>
 </div>

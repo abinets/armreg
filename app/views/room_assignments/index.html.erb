@@ -1,0 +1,37 @@
+<%= content_for :title, "Room Assignments" %>
+<%= turbo_stream_from :room_assignments %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">Room Assignments</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+        <%= sortable @room_assignments, :participant_id, "Participant", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @room_assignments, :room_id, "Room", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @room_assignments, :arrived_date, "Arrived date", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @room_assignments, :checkin_date, "Checkin date", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @room_assignments, :checkout_date, "Checkout date", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @room_assignments, :notes, "Notes", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+      </div>
+    </div>
+
+    <%= link_to t("scaffold.new.title", model: "Room Assignment"), new_room_assignment_path, class: "btn btn-secondary" %>
+  </div>
+ 
+  <%= tag.div id: ("room_assignments" if first_page?), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
+    <%= render partial: "room_assignments/room_assignment", collection: @room_assignments, as: :room_assignment, cached: true %>
+
+    <div class="hidden only:block text-center">
+      <p class="mb-4 h3">Create your first Room Assignment</p>
+      <%= link_to t("scaffold.new.title", model: "Room Assignment"), new_room_assignment_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,2 @@
+module SideEventsHelper
+end

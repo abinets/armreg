@@ -1,0 +1,17 @@
+<div id="<%= dom_id field_visit_area %>">
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Name</p>
+    <%= field_visit_area.name %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Distance from arm venue</p>
+    <%= field_visit_area.distance_from_arm_venue %>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Note</p>
+    <%= field_visit_area.note %>
+  </div>
+  <% if action_name != "show" %>
+    <%= link_to "View this field visit area", field_visit_area, class: "btn btn-secondary" %>
+  <% end %>
+</div>

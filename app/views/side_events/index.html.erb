@@ -1,0 +1,36 @@
+<%= content_for :title, "Side Events" %>
+<%= turbo_stream_from :side_events %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">Side Events</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+        <%= sortable @side_events, :event_name, "Event name", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @side_events, :description, "Description", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @side_events, :startdate, "Startdate", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @side_events, :enddate, "Enddate", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @side_events, :venue, "Venue", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+      </div>
+    </div>
+
+    <%= link_to t("scaffold.new.title", model: "Side Event"), new_side_event_path, class: "btn btn-secondary" %>
+  </div>
+
+  <%= tag.div id: ("side_events" if first_page?), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
+    <%= render partial: "side_events/side_event", collection: @side_events, as: :side_event, cached: true %>
+
+    <div class="hidden only:block text-center">
+      <p class="mb-4 h3">Create your first Side Event</p>
+      <%= link_to t("scaffold.new.title", model: "Side Event"), new_side_event_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

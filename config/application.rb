@@ -43,6 +43,7 @@ module JumpstartApp
     # Prevent sassc-rails from setting sass as the compressor
     # Libsass is deprecated and doesn't support modern CSS syntax used by TailwindCSS
     config.assets.css_compressor = nil
+    config.action_view.form_with_generates_remote_forms = true
 
     # Rails 7 defaults to libvips as the variant processor
     # libvips is up to 10x faster and consumes 1/10th the memory of imagemagick

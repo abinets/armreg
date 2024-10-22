@@ -1,0 +1,22 @@
+wb = xlsx_package.workbook
+
+wb.add_worksheet(name: 'Participants') do |sheet|
+  # Add header row
+  sheet.add_row ['S/No', 'Participant Name', 'Organization Name', 'Participant Location', 'Participant Position', 'Participant Email', 'Participant Telephone Number', 'Participant Type', 'Participant Group Number', 'Field Visit Area Name', 'Allocated Hotel']
+
+  @participants.each_with_index do |participant, index|
+    sheet.add_row [
+      index + 1,
+      participant.name,
+      participant.organization&.name, # Using safe navigation operator to avoid nil errors
+      participant.location,
+      participant.position,
+      participant.email,
+      participant.telephone_number,
+      participant.participant_type,
+      participant.group_number,
+      participant.field_visit_area_name,
+      participant.allocated_hotel
+    ]
+  end
+end

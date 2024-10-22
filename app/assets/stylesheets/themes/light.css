@@ -99,3 +99,192 @@
   --base-bg-tooltip: theme('colors.gray.800');
   --base-text-on-tooltip: theme('colors.white');
 }
+
+.dashboard-panels {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.panel {
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 20px;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s;
+}
+
+.panel:hover {
+  transform: translateY(-5px);
+}
+
+.panel h2 {
+  margin: 0 0 10px;
+  color: #333;
+  font-size: 18px;
+}
+
+.panel p {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.panel-registered {
+  background-color: #4CAF50; /* Green */
+  color: white;
+}
+
+.panel-approved {
+  background-color: #2196F3; /* Blue */
+  color: white;
+}
+
+.panel-rooms {
+  background-color: #FFC107; /* Amber */
+  color: white;
+}
+
+.panel-allocated {
+  background-color: #FF5722; /* Deep Orange */
+  color: white;
+}
+
+.panel-free {
+  background-color: #9C27B0; /* Purple */
+  color: white;
+}
+
+canvas {
+  display: block;
+  margin: 0 auto; /* Center the charts */
+}
+
+.charts-container {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin-top: 20px; /* Add spacing above charts */
+}
+
+.chart-column {
+  flex: 1;
+  min-width: 300px; /* Minimum width for each chart */
+  margin: 10px; /* Space between columns */
+  text-align: center; /* Center align the chart titles */
+}
+
+@media (max-width: 768px) {
+  .charts-container {
+    flex-direction: column; /* Stack charts on smaller screens */
+  }
+}
+
+
+
+
+
+.badges-container {
+ 
+  display: flex; /* Use flexbox to layout badges */
+  flex-wrap: wrap; /* Allow badges to wrap to the next line */
+  justify-content: center; /* Center badges */
+
+  padding: 20px; /* Space inside the border */
+  background-color: #f9f9f9; /* Optional: background color */
+  margin: 20px; /* Space around the container */
+}
+
+.badge {
+
+
+ /* background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); Update this path if necessary */
+  background-image: url('badge222.png'); /* Update this path if necessary */
+  background-size: cover; /* Scale the image to cover the entire badge */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 6px solid #0976d6; /* Border properties */
+  border-radius: 10px;
+  padding: 20px;
+  width: 450px; /* Example width */
+  height: 550px; /* Example height */
+  color: white; /* Text color, adjust as needed */
+  position: relative; /* Needed for absolute positioning of inner elements */
+  margin-left: 50px;
+  margin-bottom: 20px; /* Space between rows */
+  margin-right: 50px;
+  visibility: visible;
+  -webkit-print-color-adjust: exact;
+
+
+}
+
+
+
+.badge-header {
+  background-color: #088992; /* Dark green for header */
+  color: white;
+  padding: 10px;
+  border-radius: 8px 8px 0 0; /* Rounded top corners */
+}
+
+.badge-body {
+  margin-top: 10px; /* Space below header */
+}
+
+.badge-body h3 {
+  margin: 10px 10px;
+  color: #333; /* Darker color for name */
+}
+
+.qr-code {
+  display: flex; /* Enable flexbox */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+.qr-code img {
+  width: 100px; /* Fixed size for QR code */
+  height: 100px; /* Fixed size for QR code */
+}
+
+/* Print Styles */
+@media print {
+  .badges-container {
+
+  
+    padding: 20px; /* Space inside the border */
+    background-color: #f9f9f9; /* Optional: background color */
+    margin: 20px; /* Space around the container */
+  }
+  
+  .badge {
+    background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); /* Update this path if necessary */
+    background-size: cover; /* Scale the image to cover the entire badge */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Prevent the image from repeating */
+    border: 2px solid #4CAF50; /* Example border */
+    border-radius: 10px;
+    padding: 20px;
+    border: 6px solid #1b71e0; /* Border properties */
+    width: 337px; /* Example width */
+    height: 412px; /* Example height */
+    color: white; /* Text color, adjust as needed */
+    position: relative; /* Needed for absolute positioning of inner elements */
+    margin-left: 50px;
+    margin-bottom: 20px; /* Space between rows */
+    margin-right: 50px;
+    visibility: visible;
+    -webkit-print-color-adjust: exact;
+  }
+}
+
+
+
+
+
+
+
+

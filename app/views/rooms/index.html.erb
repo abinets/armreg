@@ -1,0 +1,37 @@
+<%= content_for :title, "Rooms" %>
+<%= turbo_stream_from :rooms %>
+
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">Rooms</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+        <%= sortable @rooms, :room_number, "Room number", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @rooms, :room_type, "Room type", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @rooms, :floor, "Floor", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @rooms, :hotel_id, "Hotel", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+      </div>
+    </div>
+
+    <%= link_to t("scaffold.new.title", model: "Room"), new_room_path, class: "btn btn-secondary" %>
+  </div>
+
+  <%= tag.div id: ("rooms" if first_page?), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6" do %>
+    <div class="row">
+      <%= render partial: "rooms/room", collection: @rooms, as: :room, cached: true, locals: { col_class: "col-md-6 mb-4" } %>
+    </div>
+  
+    <div class="hidden only:block text-center">
+      <p class="mb-4 h3">Create your first Room</p>
+      <%= link_to t("scaffold.new.title", model: "Room"), new_room_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
+</div>

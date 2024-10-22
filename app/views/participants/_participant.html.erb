@@ -1,0 +1,83 @@
+<div id="<%= dom_id participant %>" class="row">
+  <div class="col-md-6">
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Serial No</p>
+      <%= participant.serial_number %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Full Name</p>
+      <%= participant.name %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Position</p>
+      <%= participant.position %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Organization</p>
+      <%= participant.organization_name %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Region</p>
+      <%= participant.region %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Location</p>
+      <%= participant.location %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Registration date</p>
+      <%= participant.registration_date %>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Email</p>
+      <%= participant.email %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Telephone Number</p>
+      <%= participant.telephone_number %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Participant Type</p>
+      <%= participant.participant_type_name %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Group</p>
+      <%= participant.group_name %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Emergency Contact Full Name</p>
+      <%= participant.emergency_contact_name %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Emergency Contact Number</p>
+      <%= participant.emergency_contact_number %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Side Event</p>
+      <%= participant.side_event_name %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Meal Options</p>
+      <%= participant.meal_options %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Resource Material Taken</p>
+      <%= participant.resourceMaterial_take %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Accommodation Required</p>
+      <%= participant.accommodation_required %>
+    </div>
+    <div class="mb-4">
+      <p class="text-sm font-medium text-gray-500">Notes</p>
+      <%= participant.notes %>
+    </div>
+
+    <% if action_name != "show" %>
+      <%= link_to "View this participant", participant, class: "btn btn-secondary" %>
+    <% end %>
+  </div>
+</div>

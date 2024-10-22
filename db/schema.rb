@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_21_181718) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -123,7 +123,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.bigint "user_id", null: false
     t.string "token"
     t.string "name"
-    t.jsonb "metadata", default: {}
+    t.jsonb "metadata"
     t.boolean "transient", default: false
     t.datetime "last_used_at", precision: nil
     t.datetime "expires_at", precision: nil
@@ -131,6 +131,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.datetime "updated_at", null: false
     t.index ["token"], name: "index_api_tokens_on_token", unique: true
     t.index ["user_id"], name: "index_api_tokens_on_user_id"
+  end
+
+  create_table "attendees", force: :cascade do |t|
+    t.string "full_name"
+    t.string "address"
+    t.string "org"
+    t.string "days_to_attend"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "connected_accounts", force: :cascade do |t|
@@ -146,6 +155,50 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.string "access_token_secret"
     t.string "owner_type"
     t.index ["owner_id", "owner_type"], name: "index_connected_accounts_on_owner_id_and_owner_type"
+  end
+
+  create_table "email_logs", force: :cascade do |t|
+    t.integer "participant_id"
+    t.string "status"
+    t.datetime "sent_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "field_visit_activities", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.bigint "field_visit_area_id", null: false
+    t.date "scheduled_date"
+    t.float "duration"
+    t.integer "max_participants"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["field_visit_area_id"], name: "index_field_visit_activities_on_field_visit_area_id"
+  end
+
+  create_table "field_visit_areas", force: :cascade do |t|
+    t.string "name"
+    t.float "distance_from_arm_venue"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "hotels", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.integer "room_numbers"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "inbound_webhooks", force: :cascade do |t|
@@ -204,6 +257,55 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.datetime "interacted_at", precision: nil
     t.index ["account_id"], name: "index_notifications_on_account_id"
     t.index ["recipient_type", "recipient_id"], name: "index_notifications_on_recipient_type_and_recipient_id"
+  end
+
+  create_table "organizations", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.integer "allowed_participant_number"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "participant_types", force: :cascade do |t|
+    t.string "type_name"
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "participants", force: :cascade do |t|
+    t.string "name"
+    t.bigint "organization_id", null: false
+    t.date "registration_date"
+    t.string "location"
+    t.string "position"
+    t.string "email"
+    t.string "telephone_number"
+    t.bigint "participant_type_id", null: false
+    t.bigint "group_id", null: false
+    t.string "emergency_contact_name"
+    t.string "emergency_contact_number"
+    t.bigint "side_event_id", null: false
+    t.string "meal_options"
+    t.boolean "resourceMaterial_take"
+    t.boolean "accommodation_required"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "approved"
+    t.string "serial_number"
+    t.boolean "attended_day_0"
+    t.boolean "attended_day_1"
+    t.boolean "attended_day_2"
+    t.boolean "attended_day_3"
+    t.integer "field_visit_activity_id"
+    t.integer "user_id"
+    t.string "region"
+    t.index ["group_id"], name: "index_participants_on_group_id"
+    t.index ["organization_id"], name: "index_participants_on_organization_id"
+    t.index ["participant_type_id"], name: "index_participants_on_participant_type_id"
+    t.index ["side_event_id"], name: "index_participants_on_side_event_id"
   end
 
   create_table "pay_charges", force: :cascade do |t|
@@ -300,7 +402,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.string "name", null: false
     t.integer "amount", default: 0, null: false
     t.string "interval", null: false
-    t.jsonb "details", default: {}, null: false
+    t.jsonb "details"
     t.datetime "created_at", precision: nil, null: false
     t.datetime "updated_at", precision: nil, null: false
     t.integer "trial_period_days", default: 0
@@ -317,6 +419,77 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
     t.string "lemon_squeezy_id"
     t.string "fake_processor_id"
     t.string "contact_url"
+  end
+
+  create_table "refer_referral_codes", force: :cascade do |t|
+    t.string "referrer_type", null: false
+    t.bigint "referrer_id", null: false
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "referrals_count", default: 0
+    t.integer "visits_count", default: 0
+    t.index ["code"], name: "index_refer_referral_codes_on_code", unique: true
+    t.index ["referrer_type", "referrer_id"], name: "index_refer_referral_codes_on_referrer"
+  end
+
+  create_table "refer_referrals", force: :cascade do |t|
+    t.string "referrer_type", null: false
+    t.bigint "referrer_id", null: false
+    t.string "referee_type", null: false
+    t.bigint "referee_id", null: false
+    t.bigint "referral_code_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "completed_at"
+    t.index ["referee_type", "referee_id"], name: "index_refer_referrals_on_referee"
+    t.index ["referral_code_id"], name: "index_refer_referrals_on_referral_code_id"
+    t.index ["referrer_type", "referrer_id"], name: "index_refer_referrals_on_referrer"
+  end
+
+  create_table "refer_visits", force: :cascade do |t|
+    t.bigint "referral_code_id", null: false
+    t.string "ip"
+    t.text "user_agent"
+    t.text "referrer"
+    t.string "referring_domain"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["referral_code_id"], name: "index_refer_visits_on_referral_code_id"
+  end
+
+  create_table "room_assignments", force: :cascade do |t|
+    t.bigint "participant_id", null: false
+    t.bigint "room_id", null: false
+    t.date "arrived_date"
+    t.date "checkin_date"
+    t.date "checkout_date"
+    t.text "notes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "status"
+    t.index ["participant_id"], name: "index_room_assignments_on_participant_id"
+    t.index ["room_id"], name: "index_room_assignments_on_room_id"
+  end
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "room_number"
+    t.string "room_type"
+    t.integer "floor"
+    t.bigint "hotel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
+  end
+
+  create_table "side_events", force: :cascade do |t|
+    t.string "event_name"
+    t.string "description"
+    t.date "startdate"
+    t.date "enddate"
+    t.string "venue"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -368,7 +541,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_24_021434) do
   add_foreign_key "accounts", "users", column: "owner_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
+  add_foreign_key "field_visit_activities", "field_visit_areas"
+  add_foreign_key "participants", "groups"
+  add_foreign_key "participants", "organizations"
+  add_foreign_key "participants", "participant_types"
+  add_foreign_key "participants", "side_events"
   add_foreign_key "pay_charges", "pay_customers", column: "customer_id"
   add_foreign_key "pay_payment_methods", "pay_customers", column: "customer_id"
   add_foreign_key "pay_subscriptions", "pay_customers", column: "customer_id"
+  add_foreign_key "refer_visits", "refer_referral_codes", column: "referral_code_id"
+  add_foreign_key "room_assignments", "participants"
+  add_foreign_key "room_assignments", "rooms"
+  add_foreign_key "rooms", "hotels"
 end
