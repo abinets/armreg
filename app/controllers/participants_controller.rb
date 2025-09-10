@@ -1,7 +1,7 @@
 require 'roo'
 class ParticipantsController < ApplicationController
   before_action :set_participant, only: [:show, :edit, :update, :destroy, :mark_attended, :import]
-  # before_action :authenticate_user! 
+  before_action :authenticate_user! , except: [:detailed, :printbadge]
 
   # GET /participants
   def index
@@ -17,10 +17,45 @@ class ParticipantsController < ApplicationController
       # format.my_format { render my_format: @participants }
     end
 
+
+    if params[:name].present?
+      @participants = @participants.where("name ILIKE ?", "%#{params[:name]}%")
+    end
+
+    if params[:orgname].present?
+      @participants = @participants.where("orgname ILIKE ?", "%#{params[:orgname]}%")
+    end
+
+    if params[:location].present?
+      @participants = @participants.where("location ILIKE ?", "%#{params[:location]}%")
+    end
+
+
     # Uncomment to authorize with Pundit
     #  authorize @participants
   end
 
+
+  def detailed
+    @participant = Participant.find_by(serial_number: params[:serial_number])
+    
+    if @participant.nil?
+      redirect_to participants_path, alert: "Participant not found."
+    end
+  end
+
+  def printbadge
+
+    @participant = Participant.find_by(serial_number: params[:serial_number])
+    @participant_types = ParticipantType.all
+  
+    @organizations = Organization.all
+    @groups = Group.all
+    @field_visit_activities = FieldVisitActivity.all
+    @side_events = SideEvent.all
+  end 
+
+  
 #   def index
 #   # Start with all participants
 #   @participants = Participant.all
@@ -60,6 +95,7 @@ class ParticipantsController < ApplicationController
     @side_events = SideEvent.all
     @field_visit_activities = FieldVisitActivity.all
     @participant.name = params[:name] if params[:name].present?
+    @participant.email = params[:email] if params[:email].present?
   
     # Uncomment to authorize with Pundit
     # authorize @participant
@@ -73,6 +109,8 @@ class ParticipantsController < ApplicationController
     @groups = Group.all
     @side_events = SideEvent.all
     @field_visit_activities = FieldVisitActivity.all
+
+    @users = User.all
 
   end
 
@@ -146,6 +184,8 @@ class ParticipantsController < ApplicationController
         package.workbook.add_worksheet(name: 'Participants') do |sheet|
           # Define styles
           red_style = package.workbook.styles.add_style(bg_color: 'a000a0', fg_color: 'FFFFFF', num_fmt: 0) # Red background, white text
+          vip_style = package.workbook.styles.add_style(bg_color: 'FFFFFF', fg_color: 'a00000', num_fmt: 0) # Red background, white text
+
 
        header_style = package.workbook.styles.add_style(
           bg_color: '0000FF',    # Blue background
@@ -155,6 +195,7 @@ class ParticipantsController < ApplicationController
           alignment: { horizontal: :center } )          # Add header row with additional attributes
           sheet.add_row [
             'No.',
+            'Roll No.',
             'Badge ID', 
             'Name', 
             'Organization', 
@@ -164,6 +205,7 @@ class ParticipantsController < ApplicationController
             'Telephone Number', 
             'Participant Type', 
             'Group Number', 
+            'Field Activity ', 
             'Allocated Hotel'  # Column for Allocated Hotel
           ] , style: header_style 
   num = 1
@@ -171,15 +213,17 @@ class ParticipantsController < ApplicationController
           @participants.each do |participant|
             row_data = [
               num,
+              participant.rollno,
               participant.serial_number,
               participant.name,
-              participant.organization&.name, 
+              participant.orgname, 
               participant.location,
               participant.position,
               participant.email,
               participant.telephone_number,
               participant.participant_type_name, 
               participant.group_name, 
+              participant.field_visit_activity_name,
               participant.rooms.any? ? participant.rooms.map { |room| "#{room.hotel_name} (#{room.room_number})" }.join(', & ') : 'N/A' # Check if rooms are present
             ]
   
@@ -188,6 +232,8 @@ class ParticipantsController < ApplicationController
 
             if row_data.last == 'N/A'
               sheet.add_row row_data, style: red_style # Apply red style if allocated hotel is 'N/A'
+            elsif  row_data.participant.participant_type_name  == 'VIP'
+              sheet.add_row row_data, style: vip_style 
             else
               sheet.add_row row_data # Add row without special styling
             end
@@ -450,7 +496,7 @@ class ParticipantsController < ApplicationController
  
   # Only allow a list of trusted parameters through.
   def participant_params
-    params.require(:participant).permit(:serial_number, :name, :organization_id, :region, :registration_date, :field_visit_activity_id, :invitation_letter, :location, :position, :email, :telephone_number, :participant_type_id, :group_id, :emergency_contact_name, :emergency_contact_number, :side_event_id, :meal_options, :resourceMaterial_take, :accommodation_required, :notes, :attended_day_0, :attended_day_1, :attended_day_2, :attended_day_3)
+    params.require(:participant).permit(:serial_number, :name, :organization_id, :region, :registration_date, :field_visit_activity_id, :invitation_letter, :location, :position, :email, :telephone_number, :participant_type_id, :group_id, :emergency_contact_name, :emergency_contact_number, :side_event_id, :meal_options, :resourceMaterial_take, :accommodation_required, :notes, :attended_day_0, :attended_day_1, :attended_day_2, :attended_day_3, :orgname)
 
     # Uncomment to use Pundit permitted attributes
     # params.require(:participant).permit(policy(@participant).permitted_attributes)

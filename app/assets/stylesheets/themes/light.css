@@ -199,28 +199,110 @@ canvas {
 
 .badge {
 
+  /* background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); Update this path if necessary */
+  /* background-image: url('badge/partner1.jpg'); /* Update this path if necessary */
+  
 
- /* background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); Update this path if necessary */
-  background-image: url('badge222.png'); /* Update this path if necessary */
+  /* background-image: url('arm_blue_1.jpg'); */
+
+    /* background-image: url('arm_red.jpg'); */
+
+  /* background-image: url('Moh.jpg'); */
+
+  background-image: url('partner1.jpg');
+
   background-size: cover; /* Scale the image to cover the entire badge */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Prevent the image from repeating */
-  border: 6px solid #0976d6; /* Border properties */
+  border: 8px solid #0976d6; /* Border properties */
   border-radius: 10px;
-  padding: 20px;
-  width: 450px; /* Example width */
-  height: 550px; /* Example height */
+  padding: 10px;
+  width: 413px; /* Example width */
+  height: 580px; /* Example height */
   color: white; /* Text color, adjust as needed */
   position: relative; /* Needed for absolute positioning of inner elements */
-  margin-left: 50px;
-  margin-bottom: 20px; /* Space between rows */
-  margin-right: 50px;
+  margin-left: 2px;
+  margin-bottom: 2px; /* Space between rows */
+  margin-right: 2px;
+  visibility: visible;
+  -webkit-print-color-adjust: exact;
+ 
+ 
+ }
+
+
+ .badgeparticipant {
+  background-image: url('2.jpg');
+  background-size: cover; /* Scale the image to cover the entire badge */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 8px solid #0976d6; /* Border properties */
+  border-radius: 10px;
+  padding: 10px;
+  width: 413px; /* Example width */
+  height: 580px; /* Example height */
+  color: white; /* Text color, adjust as needed */
+  position: relative; /* Needed for absolute positioning of inner elements */
+  margin-left: 2px;
+  margin-bottom: 2px; /* Space between rows */
+  margin-right: 2px;
   visibility: visible;
   -webkit-print-color-adjust: exact;
 
+ }
 
-}
 
+.badgemoh {
+
+  /* background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); Update this path if necessary */
+  /* background-image: url('badge/partner1.jpg'); /* Update this path if necessary */
+  
+
+  background-image: url('Moh.jpg');
+
+  background-size: cover; /* Scale the image to cover the entire badge */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 8px solid #0976d6; /* Border properties */
+  border-radius: 10px;
+  padding: 10px;
+  width: 413px; /* Example width */
+  height: 580px; /* Example height */
+  color: white; /* Text color, adjust as needed */
+  position: relative; /* Needed for absolute positioning of inner elements */
+  margin-left: 2px;
+  margin-bottom: 2px; /* Space between rows */
+  margin-right: 2px;
+  visibility: visible;
+  -webkit-print-color-adjust: exact;
+ 
+ 
+ }
+
+
+.badgecoordinator {
+
+  /* background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); Update this path if necessary */
+  /* background-image: url('badge/partner1.jpg'); /* Update this path if necessary */
+
+  background-image: url('6.jpg');
+  background-size: cover; /* Scale the image to cover the entire badge */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 8px solid #0976d6; /* Border properties */
+  border-radius: 10px;
+  padding: 10px;
+  width: 413px; /* Example width */
+  height: 580px; /* Example height */
+  color: white; /* Text color, adjust as needed */
+  position: relative; /* Needed for absolute positioning of inner elements */
+  margin-left: 2px;
+  margin-bottom: 2px; /* Space between rows */
+  margin-right: 2px;
+  visibility: visible;
+  -webkit-print-color-adjust: exact;
+ 
+ }
 
 
 .badge-header {
@@ -250,6 +332,14 @@ canvas {
   height: 100px; /* Fixed size for QR code */
 }
 
+
+
+
+
+
+
+
+
 /* Print Styles */
 @media print {
   .badges-container {
@@ -261,24 +351,139 @@ canvas {
   }
   
   .badge {
-    background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); /* Update this path if necessary */
+
+
+    /* background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); Update this path if necessary */
+    /* background-image: url('badge/partner1.jpg'); /* Update this path if necessary */
+    
+
+    /* background-image: url('arm_blue_1.jpg'); */
+
+     /* background-image: url('arm_red.jpg'); */
+     
+
+     /* background-image: url('Moh.jpg'); 
+      */
+
+
+    background-image: url('partner1.jpg');
+  
     background-size: cover; /* Scale the image to cover the entire badge */
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
-    border: 2px solid #4CAF50; /* Example border */
+    border: 8px solid #0976d6; /* Border properties */
     border-radius: 10px;
-    padding: 20px;
-    border: 6px solid #1b71e0; /* Border properties */
-    width: 337px; /* Example width */
-    height: 412px; /* Example height */
+    padding: 10px;
+    width: 413px; /* Example width */
+    height: 580px; /* Example height */
     color: white; /* Text color, adjust as needed */
     position: relative; /* Needed for absolute positioning of inner elements */
-    margin-left: 50px;
-    margin-bottom: 20px; /* Space between rows */
-    margin-right: 50px;
+    margin-left: 2px;
+    margin-bottom: 2px; /* Space between rows */
+    margin-right: 2px;
     visibility: visible;
     -webkit-print-color-adjust: exact;
-  }
+   
+   
+   }
+
+
+
+.badgemoh {
+
+  /* background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); Update this path if necessary */
+  /* background-image: url('badge/partner1.jpg'); /* Update this path if necessary */
+  background-image: url('Moh.jpg');
+
+  background-size: cover; /* Scale the image to cover the entire badge */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 8px solid #0976d6; /* Border properties */
+  border-radius: 10px;
+  padding: 10px;
+  width: 413px; /* Example width */
+  height: 580px; /* Example height */
+  color: white; /* Text color, adjust as needed */
+  position: relative; /* Needed for absolute positioning of inner elements */
+  margin-left: 2px;
+  margin-bottom: 2px; /* Space between rows */
+  margin-right: 2px;
+  visibility: visible;
+  -webkit-print-color-adjust: exact;
+ 
+ 
+ }
+
+
+.badgecoordinator {
+
+  /* background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); Update this path if necessary */
+  /* background-image: url('badge/partner1.jpg'); /* Update this path if necessary */
+  
+  background-image: url('6.jpg');
+
+  background-size: cover; /* Scale the image to cover the entire badge */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 8px solid #0976d6; /* Border properties */
+  border-radius: 10px;
+  padding: 10px;
+  width: 413px; /* Example width */
+  height: 580px; /* Example height */
+  color: white; /* Text color, adjust as needed */
+  position: relative; /* Needed for absolute positioning of inner elements */
+  margin-left: 2px;
+  margin-bottom: 2px; /* Space between rows */
+  margin-right: 2px;
+  visibility: visible;
+  -webkit-print-color-adjust: exact;
+ 
+ 
+ }
+
+ .badgeparticipant {
+
+  background-image: url('arm_blue_1.jpg');
+  background-size: cover; /* Scale the image to cover the entire badge */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 8px solid #0976d6; /* Border properties */
+  border-radius: 10px;
+  padding: 10px;
+  width: 413px; /* Example width */
+  height: 580px; /* Example height */
+  color: white; /* Text color, adjust as needed */
+  position: relative; /* Needed for absolute positioning of inner elements */
+  margin-left: 2px;
+  margin-bottom: 2px; /* Space between rows */
+  margin-right: 2px;
+  visibility: visible;
+  -webkit-print-color-adjust: exact;
+
+ }
+
+
+ .badgevip {
+
+  background-image: url('VIP.jpg');
+  background-size: cover; /* Scale the image to cover the entire badge */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Prevent the image from repeating */
+  border: 8px solid #0976d6; /* Border properties */
+  border-radius: 10px;
+  padding: 10px;
+  width: 413px; /* Example width */
+  height: 580px; /* Example height */
+  color: white; /* Text color, adjust as needed */
+  position: relative; /* Needed for absolute positioning of inner elements */
+  margin-left: 2px;
+  margin-bottom: 2px; /* Space between rows */
+  margin-right: 2px;
+  visibility: visible;
+  -webkit-print-color-adjust: exact;
+
+ }
+
 }
 
 

@@ -1,83 +1,243 @@
-<div id="<%= dom_id participant %>" class="row">
-  <div class="col-md-6">
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Serial No</p>
-      <%= participant.serial_number %>
+<div class="registration-show-page-container">
+  <div class="card registration-show-card shadow-lg border-0 rounded-4">
+    <div class="card-header bg-dark-blue text-white text-center py-4 rounded-top-4">
+      <h1 class="font-weight-bold mb-1 text-uppercase">Participant Profile</h1>
+      <p class="mb-0 text-white-50">Detailed information for <%= participant.name %></p>
     </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Full Name</p>
-      <%= participant.name %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Position</p>
-      <%= participant.position %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Organization</p>
-      <%= participant.organization_name %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Region</p>
-      <%= participant.region %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Location</p>
-      <%= participant.location %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Registration date</p>
-      <%= participant.registration_date %>
-    </div>
-  </div>
+    <div class="card-body p-4 p-md-5">
 
-  <div class="col-md-6">
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Email</p>
-      <%= participant.email %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Telephone Number</p>
-      <%= participant.telephone_number %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Participant Type</p>
-      <%= participant.participant_type_name %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Group</p>
-      <%= participant.group_name %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Emergency Contact Full Name</p>
-      <%= participant.emergency_contact_name %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Emergency Contact Number</p>
-      <%= participant.emergency_contact_number %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Side Event</p>
-      <%= participant.side_event_name %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Meal Options</p>
-      <%= participant.meal_options %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Resource Material Taken</p>
-      <%= participant.resourceMaterial_take %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Accommodation Required</p>
-      <%= participant.accommodation_required %>
-    </div>
-    <div class="mb-4">
-      <p class="text-sm font-medium text-gray-500">Notes</p>
-      <%= participant.notes %>
-    </div>
+      <div class="row align-items-center mb-5 pb-4 border-bottom border-light-subtle">
+          <div class="col-md-6 mb-3 mb-md-0">
+              <h2 class="display-6 fw-bold text-dark-blue mb-1"><%= participant.name %></h2>
+              <p class="text-muted mb-0"><%= participant.position %></p>
+              <p class="text-muted"><%= participant.orgname %></p>
+          </div>
+          <div class="col-md-6 text-md-end">
+              <p class="fw-bold mb-0 text-dark-blue">Serial Number</p>
+              <h3 class="display-4 fw-bold text-dark-blue"><%= participant.serial_number %></h3>
+          </div>
+      </div>
 
-    <% if action_name != "show" %>
-      <%= link_to "View this participant", participant, class: "btn btn-secondary" %>
-    <% end %>
+      <div class="row">
+        <div class="col-md-6 border-end border-light-subtle pe-md-4">
+          <h5 class="mb-4 pb-2 border-bottom border-primary text-primary">Contact & Location</h5>
+          
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Email</dt>
+            <dd class="text-lg text-dark"><%= participant.email %></dd>
+          </dl>
+          
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Telephone Number</dt>
+            <dd class="text-lg text-dark"><%= participant.telephone_number %></dd>
+          </dl>
+          
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Region</dt>
+            <dd class="text-lg text-dark"><%= participant.region %></dd>
+          </dl>
+
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Location</dt>
+            <dd class="text-lg text-dark"><%= participant.location %></dd>
+          </dl>
+
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Emergency Contact</dt>
+            <dd class="text-lg text-dark"><%= participant.emergency_contact_name %></dd>
+          </dl>
+          
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Emergency Contact Number</dt>
+            <dd class="text-lg text-dark"><%= participant.emergency_contact_number %></dd>
+          </dl>
+        </div>
+
+        <div class="col-md-6 ps-md-4">
+          <h5 class="mb-4 pb-2 border-bottom border-primary text-primary">ARM Participant Details</h5>
+
+
+           <% if participant.invitation_letter.attached? %>
+            <div class="mt-4">
+              <dl class="mb-4">
+                <dt class="fw-bold text-muted mb-1">Invitation Letter</dt>
+                <dd class="text-lg text-dark">
+                  <%= link_to "View Invitation Letter", rails_blob_path(participant.invitation_letter, disposition: 'inline'), class: "btn btn-info btn-sm", target: "_blank" %>
+                </dd>
+              </dl>
+            </div>
+          <% end %>
+
+
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Participant Type</dt>
+            <dd class="text-lg text-dark"><%= participant.participant_type_name %></dd>
+          </dl>
+          
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Group</dt>
+            <dd class="text-lg text-dark"><%= participant.group_name %></dd>
+          </dl>
+
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Field Visit Activity</dt>
+            <dd class="text-lg text-dark"><%= participant.field_visit_activity_name %></dd>
+          </dl>
+          
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Side Event</dt>
+            <dd class="text-lg text-dark"><%= participant.side_event_name %></dd>
+          </dl>
+
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Meal Options</dt>
+            <dd class="text-lg text-dark">
+              <% if participant.meal_options.present? %>
+                <%= participant.meal_options.split(',').map(&:strip).join(', ') %>
+              <% else %>
+                <span class="text-muted">None specified</span>
+              <% end %>
+            </dd>
+          </dl>
+
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Accommodation</dt>
+            <dd class="text-lg text-dark">
+              <% if participant.accommodation_required? %>
+                <span class="text-success fw-bold">Required</span>
+              <% else %>
+                <span class="text-muted">Not Required</span>
+              <% end %>
+            </dd>
+          </dl>
+
+          <dl class="mb-4">
+            <dt class="fw-bold text-muted mb-1">Resource Material</dt>
+            <dd class="text-lg text-dark">
+              <% if participant.resourceMaterial_take? %>
+                <span class="text-success fw-bold">Taken</span>
+              <% else %>
+                <span class="text-muted">Not Taken</span>
+              <% end %>
+            </dd>
+          </dl>
+          
+          <% if participant.notes.present? %>
+            <dl class="mb-4">
+              <dt class="fw-bold text-muted mb-1">Notes</dt>
+              <dd class="text-lg text-dark"><%= simple_format(participant.notes) %></dd>
+            </dl>
+          <% end %>
+
+         
+
+        </div>
+      </div>
+      
+      <div class="d-flex justify-content-center mt-5 pt-3 border-top border-light-subtle">
+        <%= link_to "Edit Participant", edit_participant_path(participant), class: "btn btn-dark-blue btn-lg px-5 me-3" %>
+        <%= link_to "Back to List", participants_path, class: "btn btn-outline-secondary btn-lg px-5" %>
+      </div>
+
+    </div>
   </div>
 </div>
+
+<style>
+/* Simplified CSS for the show page */
+
+.registration-show-page-container {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registration-show-card {
+  max-width: 1200px;
+  width: 100%;
+  border: none;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+.bg-dark-blue {
+  background-color: #2c3e50 !important;
+}
+
+.card-header h1 {
+  font-size: 2.2rem;
+  letter-spacing: 1px;
+}
+
+.card-header p {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.text-primary {
+  color: #3498db !important;
+}
+
+.btn-dark-blue {
+  background-color: #2c3e50;
+  border-color: #2c3e50;
+  color: #fff;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-dark-blue:hover {
+  background-color: #34495e;
+  border-color: #34495e;
+  transform: translateY(-1px);
+}
+
+.btn-outline-secondary {
+  border-color: #95a5a6;
+  color: #7f8c8d;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #ecf0f1;
+  border-color: #7f8c8d;
+  color: #555;
+  transform: translateY(-1px);
+}
+
+.btn-lg {
+  padding: 0.8rem 2.5rem;
+  font-size: 1.1rem;
+  border-radius: 0.4rem;
+}
+
+dt {
+  font-weight: 600;
+  color: #555;
+}
+
+dd {
+  margin-left: 0;
+  font-size: 1.1rem;
+  color: #2c3e50;
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+  .registration-show-card .card-body {
+    padding: 2rem;
+  }
+  
+  .card-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .border-end {
+    border-right: none !important;
+    border-bottom: 1px solid #e9ecef;
+    padding-bottom: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+}
+</style>

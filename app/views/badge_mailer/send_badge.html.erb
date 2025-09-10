@@ -1,34 +1,79 @@
-
-<div style="background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge223.png'); 
+<p>Dear <strong><%= @participant.name %></strong></p>
+<p>Your Badge is generated, you can take from the coordinators or you can print it with a color print, See you at the event!</p>
+<div style="background-image: url('http://arm.moh.gov.et/wp-content/uploads/2024/10/badge222.png'); 
     background-size: cover; 
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Prevent the image from repeating */
-    border: 6px solid #1b71e0; /* Border properties */
+    border: 6px solid #0976d6; /* Border properties */
     border-radius: 10px; 
     padding: 20px; 
-    width: 337px; /* Example width */
+    width: 450px; 
+    height: 550px;  
+    position: relative; 
     color: white; /* Optional: text color */
-    text-align: center; /* Optional: center the text */
+    margin-left: 50px;
+    margin-bottom: 20px; /* Space between rows */
+    margin-right: 50px;
+    visibility: visible;
+    -webkit-print-color-adjust: exact;
     "> 
-      <div class="badge">
-      <div>
-      <img  src="http://arm.moh.gov.et/wp-content/uploads/2022/08/logomohnewww.png" alt="Logo" />
-      
-      <p style="text-align: center; color:black;">26th</p>
-      <p style="text-align: center; color:black; ">ARM 2024</p>
-      <p style="text-align: center; color:blue;">Annual Review Meeting</p>
-      </div>
 
-        <div class="badge-body">
-          <p style="text-align: center; color:brown; margin: 0;"><%= @participant.name %></p>
-           <p style="text-align: center; margin: 0;"><%= @participant.position %></p>
-           <p style="text-align: center; color:black; margin: 0;"><strong><%= @participant.organization.name %></strong> </p>         
-        </div>
-        <div class="qr-code">
-        <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
-        </div>
-        <div>
-        <br /><p style="text-align: center;"> <strong style="color:brown; margin: 0;"><%= @participant.serial_number %></strong></p>
+    <div class="badge">
+    <div>
+ <br /> <br /> <br />   <br /> <br /> <br /> 
      </div>
+
+      <div class="badge-body">
+        <h2 style="text-align: center; color:brown; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+       <br />
+         <p style="text-align: center; margin: 0;  font-size: 21px;  color: green;"><%= @participant.position %> | <strong><%= @participant.organization.name %></strong> </p>
+         <br />  
+         <p style="text-align: center; margin: 0;  font-size: 21px;  color: blue; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+         <br />  <br />
+         </div>
+        
+         
+         <div class="qr-code" style="display: flex; justify-content: flex-start; align-items: center; height: 110px;">
+  <img 
+    src="https://api.qrserver.com/v1/create-qr-code/?data=http://localhost:3000/participants/detailed/<%= @participant.serial_number %>&size=110x110" 
+    alt="QR Code" 
+    style="max-width: 110%; max-height: 110%; margin-left: 39%; transform: translateX(-50%);"
+  />
+</div>
+<p style="text-align: center;"> <strong style="color:brown; margin: 0;"><%= @participant.serial_number %></strong></p>
+
+
+      <div>
+      <br />
+      
+      <div class="container">
+      <div class="row justify-content-left">
+        <div class="col-12 col-md-10 col-lg-8" style="padding-left: 1px; padding-right: 5px;">
+          <table class="table" style="width: 95%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+            <tr>
+              <td style="border: 0px solid black; width: 80px; overflow-wrap: break-word;  white-space: normal;">
+                <strong style="color: green; margin: 0;">
+                  <%= @participant.group_name %>
+                </strong>
+              </td>
+              <td style="border: 3px dotted #2a7ab1; width: 90px; overflow-wrap: break-word;  white-space: normal;">
+                <strong style="color: brown; margin: 0;">
+                  <%= @participant.side_event_name %>
+                </strong>
+              </td>
+              <td style="border: 0px solid black; width: 80px; overflow-wrap: break-word; white-space: normal;">
+                <strong style="color: red; margin: 0;">
+                  <%= @participant.group_name %>
+                </strong>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
+    </div>
+
+
+
+      </div>
+    </div>
 </div>

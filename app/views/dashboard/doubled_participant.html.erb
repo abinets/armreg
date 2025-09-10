@@ -1,0 +1,152 @@
+<div class="badges-container">
+
+  <% if @participant %>
+
+    <%
+      # Determine the badge styling, classes, spacing, and image based on participant type
+      badge_class = 'badge'
+      text_color = '#00008B' # Dark Blue
+      serial_color = 'white'
+      rollno_color = 'blue'
+      image_name = ''
+      
+      top_breaks = 0
+      bottom_breaks = 0
+
+      case @participant.participant_type_name
+      when "PARTNER", "PARTICIPANT"
+        badge_class = 'badge'
+        text_color = '#00008B'
+        rollno_color = 'blue'
+        image_name = '1.png'
+        top_breaks = 12
+        bottom_breaks = 8
+      when "VIP"
+        badge_class = 'badgevip'
+        text_color = '#00008B'
+        serial_color = '#999999'
+        rollno_color = '#999999'
+        image_name = '2.png'
+        top_breaks = 6
+        bottom_breaks = 3
+      when "Coordinator"
+        badge_class = 'badgecoordinator'
+        text_color = '#00008B'
+        rollno_color = 'red'
+        image_name = '3.png'
+        top_breaks = 6
+        bottom_breaks = 3
+      when "Exhibissstor"
+        badge_class = 'badgeexsshibitor'
+        text_color = '#00008B'
+        rollno_color = 'green'
+        image_name = '4.png'
+        top_breaks = 6
+        bottom_breaks = 3
+      when "Awardssssee", "Revdsdiewer"
+        badge_class = 'badge'
+        text_color = '#00008B'
+        rollno_color = 'green'
+        image_name = '5.png'
+        top_breaks = 6
+        bottom_breaks = 3
+      when "MEDIA"
+        badge_class = 'badgemoh'
+        text_color = '#00008B'
+        rollno_color = 'green'
+        image_name = '6.png'
+        top_breaks = 6
+        bottom_breaks = 3
+      when "PARTICIPANT -MoH"
+        badge_class = 'badgeparticipant'
+        text_color = '#00008B'
+        rollno_color = 'blue'
+        image_name = '7.png'
+        top_breaks = 6
+        bottom_breaks = 3
+      else
+        # Default styling for any other types
+        badge_class = 'badge'
+        text_color = '#00008B'
+        rollno_color = 'blue'
+        image_name = '8.png'
+        top_breaks = 12
+        bottom_breaks = 8
+      end
+    %>
+
+    <div class="download-buttons" style="text-align: center; margin-bottom: 20px;">
+      <button onclick="downloadBadge('png')" style="padding: 10px 20px; font-size: 16px;">Download as PNG</button>
+<%= link_to 'Download as PDF', download_badge_pdf_path(@participant, format: :pdf), target: '_blank', style: 'padding: 10px 20px; font-size: 16px; text-decoration: none; color: white; background-color: #00008B; border: none; border-radius: 5px;' %>
+
+      </div>
+
+    <% 2.times do %>
+      <div id="badge-to-download" class="<%= badge_class %>" style="background-image: url(<%= image_url(image_name) %>);">
+        <div>
+          <% top_breaks.times do %>
+            <br />
+          <% end %>
+        </div>
+
+        <div class="badge-body" style="text-align: left; padding-left: 20px;">
+          <br />
+          <br />
+          <br />
+          <h2 style="text-align: left; color:<%= text_color %>; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+          <p style="text-align: left; margin: 0; font-size: 25px; color: <%= text_color %>;"><%= @participant.position %> </p>
+          <p style="text-align: left; margin: 0; font-size: 25px; color: <%= text_color %>; font-weight: bold;"><strong><%= @participant.orgname %></strong> </p>
+        </div>
+        
+        <br />
+        
+        <div class="qr-code" style="position: absolute; bottom: 16px; left: 27px; display: block;">
+          <img style="width: 100px; height: 100px;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+          <div style="position: absolute; bottom: 0px; right: -150px;">
+            <p style="text-align: center;"> <strong style="color:<%= serial_color %>; margin: 0;"><%= @participant.serial_number %></strong></p>
+          </div>
+        </div>
+        
+        <%# No more breaks needed here due to absolute positioning %>
+      </div>
+    <% end %>
+
+  <% else %>
+    <p>Participant not found.</p>
+  <% end %>
+
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dom-to-image/2.6.0/dom-to-image.min.js"></script>
+<script>
+  function downloadBadge(format) {
+    const node = document.getElementById('badge-to-download');
+    
+    // Hide the second badge to only download one
+    const secondBadge = node.nextElementSibling;
+    if (secondBadge) {
+      secondBadge.style.display = 'none';
+    }
+    
+    domtoimage.toPng(node)
+      .then(function (dataUrl) {
+        const link = document.createElement('a');
+        link.download = `badge_<%= @participant.serial_number %>.${format}`;
+        link.href = dataUrl;
+        link.click();
+        
+        // Restore the second badge after download
+        if (secondBadge) {
+          secondBadge.style.display = 'block';
+        }
+      })
+      .catch(function (error) {
+        console.error('oops, something went wrong!', error);
+        
+        // Restore the second badge in case of error
+        if (secondBadge) {
+          secondBadge.style.display = 'block';
+        }
+      });
+  }
+</script>

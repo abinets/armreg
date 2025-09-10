@@ -16,13 +16,17 @@ Rails.application.routes.draw do
     end
   end
 
+  # resources :public_participants, only: [:show], path: 'participants'
+
   
   resources :participants do
     collection do
       get :export, defaults: { format: 'xlsx' }
       post :import
       patch :update_visit_day_1 # Custom route for updating visit_day_1
-      
+      get 'detailed/:serial_number', to: 'participants#detailed', as: :detailed
+      get 'printbadge/:serial_number', to: 'participants#printbadge', as: :printbadge
+ 
     end
   end
 
@@ -94,6 +98,12 @@ Rails.application.routes.draw do
     root to: "dashboard#show", as: :user_root
     get 'dashboard/badges_pdf', to: 'dashboard#badges_pdf', as: 'badges_pdf'
     get 'dashboard/index', to: 'dashboard#index', as: 'index'
+    get 'dashboard/doubled', to: 'dashboard#doubled', as: 'doubled'
+    
+    get 'dashboard/doubled_participant/:id', to: 'dashboard#doubled_participant', as: 'doubled_participant'
+    
+    get 'dashboard/download_pdf/:id', to: 'dashboard#download_pdf', as: 'download_badge_pdf', constraints: { format: :pdf }
+
 
     # Alternate route to use if logged in users should still see public root
     # get "/dashboard", to: "dashboard#show", as: :user_root

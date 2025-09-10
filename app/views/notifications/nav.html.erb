@@ -26,6 +26,8 @@
       <div class="px-6 py-3 text-xs font-bold text-gray-800 uppercase bg-white dark:text-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">Admin</div>
       <%= link_to 'Sidekiq', admin_sidekiq_web_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3', target: :_blank, data: { turbo: false } if defined?(::Sidekiq) %>
 
+     <%= link_to 'Batch Badge Info', index_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3' %>
+     <%= link_to 'Doubled Batch Badge Info', doubled_path, class: 'text-gray-800 bg-white hover:bg-primary-50 dark:text-gray-50 dark:bg-gray-800 dark:hover:bg-primary-800 transition ease-in-out duration-200 whitespace-nowrap no-underline block px-6 py-3' %>
       <% end %>
     <% if !current_user.admin? %>
       <div class="px-6 py-3 text-xs font-bold text-gray-800 uppercase bg-white dark:text-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">ARM Registration</div>

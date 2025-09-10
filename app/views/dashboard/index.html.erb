@@ -1,60 +1,92 @@
-
-<div class="badges-container">
-  <% @participants.sort_by(&:name).each do |participant| %>
-    <% if participant.approved %>
-      <div class="badge">
-      <div>
-   <br /> <br />   <br />  <br /> <br />   <br /> <br /> <br /> <br /> <br /> 
-       </div>
-
-        <div class="badge-body">
-          <h2 style="text-align: center; color:brown; margin: 0; font-weight: bold;"><%= participant.name %></h2>
-         <br /> <br /> 
-           <p style="text-align: center; margin: 0;  font-size: 21px;  color: green;"><%= participant.position %> | <strong><%= participant.organization.name %></strong> </p>
-           <br />  
-           <p style="text-align: center; margin: 0;  font-size: 21px;  color: blue; font-weight: bold;"><strong>( <%= participant.participant_type_name %> )</strong></p>         
-           <br />  <br />
-           </div>
-        <div class="qr-code">
-        <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=<%= participant.serial_number %>&size=100x100" alt="QR Code" />
-
-        </div>
-        <div>
-        <br /><p style="text-align: center;"> <strong style="color:brown; margin: 0;"><%= participant.serial_number %></strong></p>
-        <br /><br /><br /> 
+<div class="badge-show-page-container">
+  <div class="card badge-show-card shadow-lg border-0 rounded-4">
+    <div class="card-body p-4 p-md-5 text-center">
+      
+      <% if @participant %>
+        <h1 class="display-4 fw-bold text-dark-blue mb-5">Conference Badge</h1>
         
-
-        
-        <div class="container">
-        <div class="row justify-content-left">
-          <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
-            <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
-              <tr>
-                <td style="border: 0px solid black; width: 150px; overflow-wrap: break-word;  white-space: normal;">
-                  <strong style="color: green; margin: 0;">
-                    <%= participant.group_name %>
-                  </strong>
-                </td>
-                <td style="border: 3px dotted #2a7ab1; width: 140px; overflow-wrap: break-word;  white-space: normal;">
-                  <strong style="color: brown; margin: 0;">
-                    <%= participant.side_event_name %>
-                  </strong>
-                </td>
-                <td style="border: 0px solid black; width: 150px; overflow-wrap: break-word; white-space: normal;">
-                  <strong style="color: red; margin: 0;">
-                    <%= participant.group_name %>
-                  </strong>
-                </td>
-              </tr>
-            </table>
+        <div class="badge-content mb-5">
+          <div class="badge-image-container mb-4">
+            <% if @participant.profile_picture.attached? %>
+              <%= image_tag @participant.profile_picture, class: "badge-image img-fluid rounded" %>
+            <% else %>
+              <div class="badge-placeholder">No Image Attached</div>
+            <% end %>
+          </div>
+          
+          <h2 class="fw-bold text-dark-blue mb-1"><%= @participant.name %></h2>
+          <p class="text-muted mb-3"><%= @participant.orgname %></p>
+          
+          <div class="serial-number-box">
+            <p class="fw-bold mb-0 text-muted">Serial Number</p>
+            <h3 class="display-4 fw-bold text-dark-blue"><%= @participant.serial_number %></h3>
           </div>
         </div>
-      </div>
-
-
-
+        
+        <div class="d-flex justify-content-center mt-5 pt-3 border-top border-light-subtle">
+          <%= link_to "Back to All Participants", participants_path, class: "btn btn-outline-secondary btn-lg px-5" %>
         </div>
-      </div>
-    <% end %>
-  <% end %>
+      
+      <% else %>
+        <div class="alert alert-danger" role="alert">
+          Badge not found.
+        </div>
+        <%= link_to "Back to All Participants", participants_path, class: "btn btn-primary btn-lg mt-3" %>
+      <% end %>
+      
+    </div>
+  </div>
 </div>
+
+<style>
+/* Basic styles to make the badge page look good */
+.badge-show-page-container {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.badge-show-card {
+  max-width: 600px;
+  width: 100%;
+  border: none;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+.badge-image-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto;
+  border: 4px solid #fff;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.badge-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.badge-placeholder {
+  width: 100%;
+  height: 100%;
+  background-color: #e9ecef;
+  color: #6c757d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.9rem;
+}
+.serial-number-box {
+  background-color: #ecf0f1;
+  border-radius: 10px;
+  padding: 1.5rem;
+  display: inline-block;
+}
+.text-dark-blue { color: #2c3e50 !important; }
+.btn-outline-secondary { border-color: #95a5a6; color: #7f8c8d; transition: all 0.2s ease-in-out; }
+.btn-outline-secondary:hover { background-color: #ecf0f1; border-color: #7f8c8d; color: #555; transform: translateY(-1px); }
+.btn-lg { padding: 0.8rem 2.5rem; font-size: 1.1rem; border-radius: 0.4rem; }
+</style>

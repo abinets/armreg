@@ -10,14 +10,14 @@
       <%= link_to t("scaffold.new.title", model: "Participant"), new_participant_path, class: "btn btn-secondary" %>
 
       <%= link_to 'Export Participants', export_participants_path(format: :xlsx), class: 'btn btn-primary' %>
-      <%= link_to 'Import Participants', import_participants_path, class: 'btn btn-primary' %>
+      <%# link_to 'Import Participants', import_participants_path, class: 'btn btn-primary' %>
     </div>
      
 
       <div class="text-sm font-medium">
         <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
         <%= sortable @participants, :name, "Name", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @participants, :organization_id, "Organization", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @participants, :orgname, "Organization", class: "text-gray-700 dark:text-gray-300 mr-1" %>
         <%= sortable @participants, :registration_date, "Registration date", class: "text-gray-700 dark:text-gray-300 mr-1" %>
         <%= sortable @participants, :location, "Location", class: "text-gray-700 dark:text-gray-300 mr-1" %>
         <%= sortable @participants, :position, "Position", class: "text-gray-700 dark:text-gray-300 mr-1" %>
@@ -47,8 +47,8 @@
           <%= text_field_tag :name, params[:name], class: "form-control" %>
         </div>
         <div class="form-group col-md-4">
-          <%= label_tag :organization_id, "Organization", class: "form-label" %>
-          <%= text_field_tag :organization_id, params[:organization_id], class: "form-control" %>
+          <%= label_tag :orgname, "Organization", class: "form-label" %>
+          <%= text_field_tag :orgname, params[:orgname], class: "form-control" %>
         </div>
         <div class="form-group col-md-4">
           <%= label_tag :location, "Location", class: "form-label" %>
@@ -89,7 +89,7 @@
           <tr>
             <td><%= index + 1 %></td>
             <td><%= participant.name %></td>
-            <td><%= participant.organization_name %></td>
+            <td><%= participant.orgname %></td>
             <td><%= participant.registration_date %></td>
             <td><%= participant.location %></td>
             <td><%= participant.position %></td>
@@ -139,9 +139,9 @@
         </div>
       <% end %>
     <% else %>
-      <h2 class="text-warning">No Participant Information Found</h2>
+      <h2 class="text-info">No Participant Information Found</h2>
       <p>You are not yet registered as a participant. Would you like to create one?</p>
-      <%= link_to t("scaffold.new.title", model: "Participant"), new_participant_path(name: current_user.name), class: "btn btn-secondary" %>
+      <%= link_to t("scaffold.new.title", model: "Participant"), new_participant_path(name: current_user.name, email: current_user.email), class: "btn btn-secondary" %>
     <% end %>
   </ul>
  <% if !Participant.where(user_id: current_user.id, approved: true).exists? %>
@@ -149,7 +149,7 @@
     <p> Your registration is not yet approved, if the ARM Coordinator approved your registration you will recieve confirmation email, keep in touch!</p>
     <small>Notice that onece your registration is approved, you can't edit your participation information</small>   
     <% else %>
-    <p> Sorry, We can't provide information about your approval and badge generation unless you got registered!</p>
+    <p> Sorry, We can't provide information about your participation approval and badge generation unless you got registered!</p>
 
     <% end %>
     <% else %>

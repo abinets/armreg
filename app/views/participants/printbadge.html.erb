@@ -1,0 +1,1225 @@
+
+<div class="badges-container">
+
+
+<% if @participant.approved %>
+
+
+<% if @participant.participant_type_name == "PARTNER" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:white; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+    
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: red; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<% elsif @participant.participant_type_name == "MEDsIA" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: green; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+<% elsif @participant.participant_type_name == "Exhibissstor" %>
+
+<div class="badgeexsshibitor">
+<div>
+<br /> <br />   <br />  <br />  <br />   <br />  
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+    
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> 
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: green; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<% elsif @participant.participant_type_name == "Awardssssee" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: green; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<% elsif @participant.participant_type_name == "Revdsdiewer" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: green; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+<% elsif @participant.participant_type_name == "PARTICIPANT" %>
+ 
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:white; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+    
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: blue; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<% elsif @participant.participant_type_name == "PARTICIPANT -MoH" %>
+<div class="badgeparticipant">
+<div>
+<br /> <br />   <br />  <br /> <br />   <br />  
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:white; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: blue; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+      <% elsif @participant.participant_type_name == "VIP" %>
+
+     <div class="badge badge-vip ">
+      <div>
+      <br /> <br />   <br />  <br />  <br />  <br />  
+       </div>
+      
+        <div class="badge-body">
+          <h3 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h3>
+      
+           <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+          
+           <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+      
+           </div>
+           
+   
+        <div class="qr-code">
+        <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+        
+        </div>
+        <div>
+       <p style="text-align: center;"> <strong style="color:#999999; margin: 0;"><%= @participant.serial_number %></strong></p>
+       
+       <br /> <br /> <br />  
+        
+      
+        
+        <div class="container">
+        <div class="row justify-content-left">
+          <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+            <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+              <tr>
+                <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+            
+                </td>
+                <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+                 <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: black; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+      
+                </td>
+                <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+                <strong style="color: #999999; margin: 0;">
+                <h4> <%= @participant.rollno %> </h4>
+                    </strong>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+        </div>
+      </div>
+      
+      
+
+
+ <% elsif @participant.participant_type_name == "Coordinator" %>
+
+ <div class="badgecoordinator">
+ <div>
+ <br /> <br />   <br />  <br />  <br />  <br />
+  </div>
+ 
+   <div class="badge-body">
+     <h2 style="text-align: center; color:white; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+ 
+      <p style="text-align: center; margin: 0;  font-size: 21px;  color: white;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+     
+      <p style="text-align: center; margin: 0;  font-size: 21px;  color: white; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+ 
+      </div>
+      
+      
+
+     
+   <div class="qr-code">
+   <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+   
+   </div>
+   <div>
+  <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+  
+  <br /> <br /> <br />
+   
+ 
+   
+   <div class="container">
+   <div class="row justify-content-left">
+     <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+       <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+         <tr>
+           <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+       
+           </td>
+           <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+            <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+ 
+           </td>
+           <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+           <strong style="color: red; margin: 0;">
+           <h4> <%= @participant.rollno %> </h4>
+               </strong>
+           </td>
+         </tr>
+       </table>
+     </div>
+   </div>
+ </div>
+ 
+ 
+ 
+   </div>
+ </div>
+ 
+ 
+
+<% else %>
+
+
+<div class="badgemoh">
+<div>
+<br /> <br />   <br />  <br />  <br />   <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:black; margin: 0;"><%= @participant.serial_number %></strong></p>
+  <br /><br />  <br /> 
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <p><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  (<%= @participant.field_visit_activity_km %>) </strong> </p>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: #b2aaaa; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+   
+<% end %>
+
+
+
+
+<% if @participant.participant_type_name == "PARTNER" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: red; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<% elsif @participant.participant_type_name == "MEsssDIA" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: green; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<% elsif @participant.participant_type_name == "Exhisssbitor" %>
+<div class="badgeexhibitor">
+<div>
+<br /> <br />   <br />  <br />  <br />   <br />  
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+    
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> 
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: green; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<% elsif @participant.participant_type_name == "Awardeesss" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: green; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+
+<% elsif @participant.participant_type_name == "Revisdsdewer" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: green; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+<% elsif @participant.participant_type_name == "PARTICIPANT" %>
+
+<div class="badge">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br /> <br />  <br /> <br />  <br /> <br /> <br /> 
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:white; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+    
+     <br />
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: blue; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+<% elsif @participant.participant_type_name == "PARTICIPANT -MoH" %>
+ <div class="badgeparticipant">
+<div>
+<br /> <br />   <br />  <br /> <br />   <br />  
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:white; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: white; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: blue; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+
+<% elsif @participant.participant_type_name == "VIP" %>
+      <div class="badge badge-vip ">
+      <div>
+      <br /> <br />   <br />  <br />  <br />  <br />  
+       </div>
+      
+        <div class="badge-body">
+          <h3 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h3>
+      
+           <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+          
+           <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+      
+           </div>
+      
+          
+        <div class="qr-code">
+        <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+        
+        </div>
+        <div>
+       <p style="text-align: center;"> <strong style="color:#999999; margin: 0;"><%= @participant.serial_number %></strong></p>
+       
+       <br /> <br /> <br />  
+      
+        
+        <div class="container">
+        <div class="row justify-content-left">
+          <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+            <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+              <tr>
+                <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+            
+                </td>
+                <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+                 <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: black; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+      
+                </td>
+                <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+                <strong style="color: #999999; margin: 0;">
+                <h4> <%= @participant.rollno %> </h4>
+                    </strong>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+      
+      
+      
+        </div>
+      </div>
+      
+
+
+<% elsif @participant.participant_type_name == "Coordinator" %>
+
+<div class="badgecoordinator">
+<div>
+<br /> <br />   <br />  <br />  <br />  <br />
+ </div>
+
+  <div class="badge-body">
+    <h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+    
+     <p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+     </div>
+     
+     
+    
+  <div class="qr-code">
+  <img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+  
+  </div>
+  <div>
+ <p style="text-align: center;"> <strong style="color:white; margin: 0;"><%= @participant.serial_number %></strong></p>
+ 
+ <br /> <br /> <br />
+  
+
+  
+  <div class="container">
+  <div class="row justify-content-left">
+    <div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+      <table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+        <tr>
+          <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+      
+          </td>
+          <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+           <h6><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  </strong> </h6>
+
+          </td>
+          <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+          <strong style="color: red; margin: 0;">
+          <h4> <%= @participant.rollno %> </h4>
+              </strong>
+          </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+  </div>
+</div>
+
+
+
+<% else %>
+
+
+<div class="badgemoh">
+<div>
+<br /> <br />   <br />  <br />  <br />   <br /> 
+</div>
+
+<div class="badge-body">
+<h2 style="text-align: center; color:black; margin: 0; font-weight: bold;"><%= @participant.name %></h2>
+
+<p style="text-align: center; margin: 0;  font-size: 21px;  color: black;"><%= @participant.position %> | <strong><%= @participant.orgname %></strong> </p>
+
+<p style="text-align: center; margin: 0;  font-size: 21px;  color: black; font-weight: bold;"><strong>( <%= @participant.participant_type_name %> )</strong></p>         
+
+</div>
+<div class="qr-code">
+<img style="text-align: center; bold; color:blue;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=100x100" alt="QR Code" />
+
+</div>
+<div>
+<p style="text-align: center;"> <strong style="color:black; margin: 0;"><%= @participant.serial_number %></strong></p>
+<br /><br />  <br /> 
+
+
+
+<div class="container">
+<div class="row justify-content-left">
+<div class="col-12 col-md-10 col-lg-8" style="padding-left: 15px; padding-right: 5px;">
+<table class="table" style="width: 145%; margin-left: 3%; text-align: left;  border-collapse: collapse;">
+  <tr>
+    <td style="border: 0px solid black; width: 100px; overflow-wrap: break-word;  white-space: normal;">
+
+    </td>
+    <td style="border: 0px dotted #2a7ab1; width: 270px; overflow-wrap: break-word;  white-space: normal;">
+     <p><strong style="color: black; margin: 0;background-color: gray;"> <%= @participant.group_name %> </strong> <strong style="color: white; margin: 0;">| <%= @participant.field_visit_activity_name %>  (<%= @participant.field_visit_activity_km %>) </strong> </p>
+
+    </td>
+    <td style="border: 0px solid black; width: 60px; overflow-wrap: break-word; white-space: normal;">
+    <strong style="color: #b2aaaa; margin: 0;">
+    <h4> <%= @participant.rollno %> </h4>
+        </strong>
+    </td>
+  </tr>
+</table>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<% end %>
+
+
+
+    <% end %>
+
+</div>

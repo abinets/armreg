@@ -1,191 +1,259 @@
-<%= form_with(model: participant) do |form| %>
-  <%= render "error_messages", resource: form.object %>
-
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group">
-          <%= form.label :name %>
-          <%= form.text_field :name, value: @participant.name, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-        <%= form.label :organization_id %>
-        
-        <%= form.collection_select :organization_id, @organizations, :id, :name, { prompt: "Select an Organization" }, { id: "organization-select", class: "form-control" } %>
-      </div>
-    
-      <div id="other-organization-field" style="display: none;" class="form-group">
-        <%= form.label :other_organization_name, "Enter new Organization Name" %>
-        <%= form.text_field :other_organization_name, class: "form-control", placeholder: "Enter organization name" %>
-        
-        <%= form.hidden_field :description, value: "#{current_user.name} added organization", id: "organization-description" %>
-      </div>
-      
-      <%= form_with(model: @participant, local: true) do |form| %>
-        <div class="form-group">
-          <%= form.label :region %>
-          <%= form.select :region, [
-            ['Addis Ababa', 'Addis Ababa'],
-            ['Afar Region', 'Afar Region'],
-            ['Amhara Region', 'Amhara Region'],
-            ['Benishangul-Gumuz Region', 'Benishangul-Gumuz Region'],
-            ['Central Ethiopia Regional State', 'Central Ethiopia Regional State'],
-            ['Dire Dawa', 'Dire Dawa'],
-            ['Gambela Region', 'Gambela Region'],
-            ['Harari Region', 'Harari Region'],
-            ['Oromia Region', 'Oromia Region'],
-            ['Sidama Region', 'Sidama Region'],
-            ['Somali Region', 'Somali Region'],
-            ['South Ethiopia Regional State', 'South Ethiopia Regional State'],
-            ['South West Ethiopia Peoples\' Region', 'South West Ethiopia Peoples\' Region'],
-            ['Tigray Region', 'Tigray Region']
-          ], { prompt: "Select a Region" }, { class: "form-control" } %>
-        </div>
-     
-      <% end %>
-
-
-      
-
-        <div class="form-group">
-          <%= form.label :location %>
-          <%= form.text_field :location, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-        <%= form.label :registration_date %>
-        <%= form.date_field :registration_date, value: Date.today, class: "form-control" %>
-      </div>
-
-        <div class="form-group">
-          <%= form.label :email %>
-          <%= form.text_field :email, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :telephone_number %>
-          <%= form.text_field :telephone_number, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :emergency_contact_name %>
-          <%= form.text_field :emergency_contact_name, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :emergency_contact_number %>
-          <%= form.text_field :emergency_contact_number, class: "form-control" %>
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <div class="form-group">
-          <%= form.label :invitation_letter %>
-          <%= form.file_field :invitation_letter, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :position %>
-          <%= form.text_field :position, class: "form-control", maxlength: 25 %>
-          <small style="color: gray;">Allowed max text length: 25 characters</small>
-        </div>
-
-        <%= form.label :participant_type_id %>
-  
-      <% if current_user.admin? %>
-        <%= form.collection_select :participant_type_id, @participant_types, :id, :type_name, { prompt: "Select Participant Type" }, class: "form-control" %>
-      <% else %>
-        <%= form.hidden_field :participant_type_id, value: @participant_types.find_by(type_name: "Guest").id %>
-        <%= form.text_field :participant_type_id, value: "Guest", disabled: true, class: "form-control" %>
-        <small style="color: gray;">Coordinators will assign your participation type</small>
-        <% end %>
-
-<div class="form-group">
-  <%= form.label :field_visit_activity_id, "Field Visit Activity" %>
-
-  <% if current_user.admin? %>
-    <%= form.collection_select :field_visit_activity_id, @field_visit_activities, :id, :name, prompt: "Select Field Visit Activity", class: "form-control" %>
-  <% else %>
-    <% default_activity = @field_visit_activities.find_by(name: "Default Activity") %>
-    <% if default_activity %>
-      <%= form.hidden_field :field_visit_activity_id, value: default_activity.id %>
-      <%= form.text_field :field_visit_activity_id, value: "Default Activity", disabled: true, class: "form-control" %>
-    <% else %>
-      <p>Error: Default activity not found.</p>
-    <% end %>
-    <small style="color: gray;">Coordinators will assign your field visit activity and you will be notified about it.</small>
-  <% end %>
-</div>
-<div class="form-group">
-  <%= form.label :group_id %>
-
-  <% if current_user.admin? %>
-    <%= form.collection_select :group_id, @groups, :id, :name, prompt: "Select a Group", class: "form-control" %>
-  <% else %>
-    <% default_group = @groups.find_by(name: "Default Group") %>
-    <% if default_group %>
-      <%= form.hidden_field :group_id, value: default_group.id %>
-      <%= form.text_field :group_id, value: "Default Group", disabled: true, class: "form-control" %>
-    <% else %>
-      <p>Error: Default group not found.</p>
-    <% end %>
-    <small style="color: gray;">Your group will be assigned by the coordinators.</small>
-  <% end %>
-</div>
-
-        <div class="form-group">
-          <%= form.label :side_event_id %>
-          <%= form.collection_select :side_event_id, @side_events, :id, :event_name, prompt: "Select Side Event you would like to attend", class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :meal_options %>
-          <%= form.text_field :meal_options, class: "form-control" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :resourceMaterial_take %>
-          <%= form.check_box :resourceMaterial_take, class: "form-checkbox" %>
-          <%= form.label :resourceMaterial_take, "Take Resource Material" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :accommodation_required %>
-          <%= form.check_box :accommodation_required, class: "form-checkbox" %>
-          <%= form.label :accommodation_required, "Accommodation Required" %>
-        </div>
-
-        <div class="form-group">
-          <%= form.label :notes %>
-          <%= form.text_area :notes, class: "form-control" %>
-        </div>
-      </div>
+<div class="registration-form-container">
+  <div class="card registration-card shadow-lg border-0 rounded-4">
+    <div class="card-header bg-dark-blue text-white text-center py-4 rounded-top-4">
+      <h1 class="font-weight-bold mb-1 text-uppercase">ARM Participant Registration</h1>
+      <p class="mb-0 text-white-50">Please provide your details for the ARM 2025.</p>
     </div>
+    <div class="card-body p-4 p-md-5">
+      <%= form_with(model: participant) do |form| %>
 
-    <div class="form-group text-center">
-    <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
-      <% if form.object.new_record? %>
-        <%= link_to t("cancel"), participants_path, class: "btn btn-secondary" %>
-      <% else %>
-        <%= link_to t("cancel"), participant_path(@participant), class: "btn btn-secondary" %>
+        <%= render "error_messages", resource: form.object %>
+
+        <div class="row">
+          <div class="col-md-6 border-end border-light-subtle pe-md-4">
+            <h5 class="mb-4 pb-2 border-bottom border-primary text-primary">Personal & Contact Information</h5>
+            
+            <div class="form-group mb-4">
+              <%= form.label :name, class: "form-label" %>
+              <%= form.text_field :name, class: "form-control form-control-lg", placeholder: "Your Full Name" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :organization, class: "form-label" %>
+              <%= form.text_field :orgname, class: "form-control form-control-lg", maxlength: 25, placeholder: "e.g., Ministry of Health" %>
+              <small class="form-text text-muted">Maximum 25 characters</small>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :region, class: "form-label" %>
+              <%= form.select :region, [
+                ['Addis Ababa', 'Addis Ababa'],
+                ['Afar Region', 'Afar Region'],
+                ['Amhara Region', 'Amhara Region'],
+                ['Benishangul-Gumuz Region', 'Benishangul-Gumuz Region'],
+                ['Central Ethiopia Regional State', 'Central Ethiopia Regional State'],
+                ['Dire Dawa', 'Dire Dawa'],
+                ['Gambela Region', 'Gambela Region'],
+                ['Harari Region', 'Harari Region'],
+                ['Oromia Region', 'Oromia Region'],
+                ['Sidama Region', 'Sidama Region'],
+                ['Somali Region', 'Somali Region'],
+                ['South Ethiopia Regional State', 'South Ethiopia Regional State'],
+                ['South West Ethiopia Peoples\' Region', 'South West Ethiopia Peoples\' Region'],
+                ['Tigray Region', 'Tigray Region']
+              ], { prompt: "Select a Region" }, { class: "form-control form-control-lg" } %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :location, class: "form-label" %>
+              <%= form.text_field :location, class: "form-control form-control-lg", placeholder: "e.g., Bole Sub-City, Addis Ababa" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :registration_date, class: "form-label" %>
+              <%= form.date_field :registration_date, value: Date.today, class: "form-control form-control-lg" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :email, class: "form-label" %>
+              <%= form.email_field :email, class: "form-control form-control-lg", placeholder: "your.email@example.com" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :telephone_number, class: "form-label" %>
+              <%= form.telephone_field :telephone_number, class: "form-control form-control-lg", placeholder: "+251 (XX) XXX-XXXX" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :emergency_contact_name, class: "form-label" %>
+              <%= form.text_field :emergency_contact_name, class: "form-control form-control-lg", placeholder: "Emergency Contact Name" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :emergency_contact_number, class: "form-label" %>
+              <%= form.telephone_field :emergency_contact_number, class: "form-control form-control-lg", placeholder: "+251 (XX) XXX-XXXX" %>
+            </div>
+          </div>
+
+          <div class="col-md-6 ps-md-4">
+            <h5 class="mb-4 pb-2 border-bottom border-primary text-primary">Conference & Participation Details</h5>
+
+            <div class="form-group mb-4">
+              <%= form.label :invitation_letter, class: "form-label" %>
+              <%= form.file_field :invitation_letter, class: "form-control form-control-lg" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :position, class: "form-label" %>
+              <%= form.text_field :position, class: "form-control form-control-lg", maxlength: 25, placeholder: "e.g., Director, Head of Department" %>
+              <small class="form-text text-muted">Maximum 25 characters</small>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :organization_id, class: "form-label" %>
+              <%= form.collection_select :organization_id, @organizations || [], :id, :name, { prompt: "Select your Organization" }, { id: "organization-select", class: "form-control form-control-lg" } %>
+            </div>
+        
+            <div id="other-organization-field" style="display: none;" class="form-group mb-4">
+              <%= form.label :other_organization_name, "Enter New Organization Name", class: "form-label" %>
+              <%= form.text_field :other_organization_name, class: "form-control form-control-lg", placeholder: "Enter new organization name" %>
+              <%= form.hidden_field :description, value: "#{current_user.name} added organization", id: "organization-description" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :participant_type_id, class: "form-label" %>
+              <% if current_user.admin? %>
+                <%= form.collection_select :participant_type_id, @participant_types || [], :id, :type_name, { prompt: "Select Participant Type" }, class: "form-control form-control-lg" %>
+              <% else %>
+                <% guest_type = @participant_types.find_by(type_name: "Guest") %>
+                <% if guest_type %>
+                  <%= form.hidden_field :participant_type_id, value: guest_type.id %>
+                  <%= form.text_field :participant_type_id, value: "Guest", disabled: true, class: "form-control form-control-lg bg-light" %>
+                <% else %>
+                  <p class="text-danger">Error: The "Guest" participation type is missing from the database.</p>
+                <% end %>
+                <small class="form-text text-muted">Your participation type will be assigned by coordinators.</small>
+              <% end %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :field_visit_activity_id, "Field Visit Activity", class: "form-label" %>
+              <% if current_user.admin? %>
+                <%= form.collection_select :field_visit_activity_id, @field_visit_activities || [], :id, :name, prompt: "Select Field Visit Activity", class: "form-control form-control-lg" %>
+              <% else %>
+                <% unassigned_activity = @field_visit_activities.find_by(name: "Unassigned Activity") %>
+                <% if unassigned_activity %>
+                  <%= form.hidden_field :field_visit_activity_id, value: unassigned_activity.id %>
+                  <%= form.text_field :field_visit_activity_id, value: "Unassigned Activity", disabled: true, class: "form-control form-control-lg bg-light" %>
+                <% else %>
+                  <p class="text-danger">Error: Unassigned activity not found in the database.</p>
+                <% end %>
+                <small class="form-text text-muted">Coordinators will assign your field visit activity and notify you.</small>
+              <% end %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :group_id, class: "form-label" %>
+              <% if current_user.admin? %>
+                <%= form.collection_select :group_id, @groups || [], :id, :name, prompt: "Select a Group", class: "form-control form-control-lg" %>
+              <% else %>
+                <% unassigned_group = @groups.find_by(name: "Unassigned Group") %>
+                <% if unassigned_group %>
+                  <%= form.hidden_field :group_id, value: unassigned_group.id %>
+                  <%= form.text_field :group_id, value: "Unassigned Group", disabled: true, class: "form-control form-control-lg bg-light" %>
+                <% else %>
+                  <p class="text-danger">Error: Unassigned group not found in the database.</p>
+                <% end %>
+                <small class="form-text text-muted">Your group will be assigned by the coordinators.</small>
+              <% end %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :side_event_id, class: "form-label" %>
+              <%= form.collection_select :side_event_id, @side_events || [], :id, :event_name, prompt: "Select Side Event you would like to attend", class: "form-control form-control-lg" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :meal_options, class: "form-label" %>
+              <div class="d-flex flex-wrap" data-controller="meal-options">
+                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="vegetarian">Vegetarian</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="vegan">Vegan</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="halal">Halal</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="kosher">Kosher</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="gluten-free">Gluten-Free</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="nut-allergy">Nut Allergy</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="dairy-free">Dairy-Free</button>
+                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="none">None</button>
+              </div>
+              <%= form.hidden_field :meal_options, data: { "meal-options-target" => "hiddenField" } %>
+              <small class="form-text text-muted">Select all applicable meal preferences</small>
+            </div>
+
+            <div class="form-check mb-4">
+              <%= form.check_box :resourceMaterial_take, class: "form-check-input" %>
+              <%= form.label :resourceMaterial_take, "Require Resource Material", class: "form-check-label ms-2" %>
+            </div>
+
+            <div class="form-check mb-4">
+              <%= form.check_box :accommodation_required, class: "form-check-input" %>
+              <%= form.label :accommodation_required, "Accommodation Required", class: "form-check-label ms-2" %>
+            </div>
+
+            <div class="form-group mb-4">
+              <%= form.label :notes, class: "form-label" %>
+              <%= form.text_area :notes, class: "form-control form-control-lg", rows: 4, placeholder: "Any special requests or additional notes..." %>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex justify-content-center mt-5 pt-3 border-top border-light-subtle">
+          <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-dark-blue btn-lg px-5 me-3" %>
+          <% if form.object.new_record? %>
+            <%= link_to t("cancel"), participants_path, class: "btn btn-outline-secondary btn-lg px-5" %>
+          <% else %>
+            <%= link_to t("cancel"), participant_path(@participant), class: "btn btn-outline-secondary btn-lg px-5" %>
+          <% end %>
+        </div>
       <% end %>
     </div>
   </div>
-<% end %>
+</div>
+
+<style>
+/* Simplified CSS for the form page */
+.registration-form-container {
+  background-color: #f0f2f5;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.registration-card {
+  max-width: 1200px;
+  width: 100%;
+  border: none;
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+.bg-dark-blue { background-color: #2c3e50 !important; }
+.card-header h1 { font-size: 2.2rem; letter-spacing: 1px; }
+.card-header p { font-size: 1rem; opacity: 0.8; }
+.form-label { font-weight: 600; color: #34495e; margin-bottom: 0.6rem; }
+.form-text { font-size: 0.85rem; color: #7f8c8d !important; }
+.text-primary { color: #3498db !important; }
+.form-control-lg { border-radius: 0.5rem; padding: 0.85rem 1.25rem; border: 1px solid #ced4da; transition: all 0.2s ease-in-out; }
+.form-control-lg:focus { border-color: #3498db; box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25); }
+.form-control-lg.bg-light { background-color: #e9ecef !important; color: #6c757d; }
+.btn-dark-blue { background-color: #2c3e50; border-color: #2c3e50; color: #fff; transition: all 0.2s ease-in-out; }
+.btn-dark-blue:hover { background-color: #34495e; border-color: #3498de; transform: translateY(-1px); }
+.btn-outline-secondary { border-color: #95a5a6; color: #7f8c8d; transition: all 0.2s ease-in-out; }
+.btn-outline-secondary:hover { background-color: #ecf0f1; border-color: #7f8c8d; color: #555; transform: translateY(-1px); }
+.btn-lg { padding: 0.8rem 2.5rem; font-size: 1.1rem; border-radius: 0.4rem; }
+.btn.active-tag { background-color: #3498db; color: #fff; border-color: #3498db; }
+.btn.active-tag:hover { background-color: #2980b9; border-color: #2980b9; }
+@media (max-width: 767.98px) {
+  .registration-card .card-body { padding: 2rem; }
+  .card-header h1 { font-size: 1.8rem; }
+  .col-md-6.border-end { border-right: none !important; border-bottom: 1px solid #e9ecef; padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
+}
+</style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     const organizationSelect = document.getElementById("organization-select");
     const otherOrganizationField = document.getElementById("other-organization-field");
+    
+    if (organizationSelect) {
+      const showHideOtherField = () => {
+        if (organizationSelect.options[organizationSelect.selectedIndex].text === 'Other') {
+          otherOrganizationField.style.display = "block";
+        } else {
+          otherOrganizationField.style.display = "none";
+        }
+      };
 
-    organizationSelect.addEventListener("change", function() {
-      // Check if the selected value is '6'
-      if (this.value === "6") { // Make sure the value is a string
-        otherOrganizationField.style.display = "block"; // Show the text field
-      } else {
-        otherOrganizationField.style.display = "none"; // Hide the text field
-      }
-    });
+      showHideOtherField();
+      organizationSelect.addEventListener("change", showHideOtherField);
+    }
   });
 </script>

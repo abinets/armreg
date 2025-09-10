@@ -1,0 +1,28 @@
+
+<div class="container my-4">
+  <h2>Details about Participant Named <%= @participant.name %> </h2>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Participant Information</h5>
+      <p><strong>Serial Number:</strong> <%= @participant.serial_number %></p>
+      <p><strong>Name:</strong> <%= @participant.name %></p>
+      <p><strong>Organization:</strong> <%= @participant.orgname || 'N/A' %></p>
+      <p><strong>Location:</strong> <%= @participant.location %></p>
+      <p><strong>Position:</strong> <%= @participant.position %></p>
+      <p><strong>Email:</strong> <%= @participant.email %></p>
+      <p><strong>Telephone Number:</strong> <%= @participant.telephone_number %></p>
+      <p><strong>Participant Type:</strong> <%= @participant.participant_type_name %></p>
+      <p><strong>Group Name:</strong> <%= @participant.group_name %></p>
+      <p><strong>Rooms Assigned:</strong>
+        <%= @participant.rooms.any? ? @participant.rooms.map { |room| "#{room.hotel_name} (#{room.room_number})" }.join(', & ') : 'N/A' %>
+      </p>
+      
+ 
+
+      <div class="mt-4">
+        <%= link_to 'Back to Participants', participants_path, class: 'btn btn-secondary' %>
+      </div>
+    </div>
+  </div>
+</div>

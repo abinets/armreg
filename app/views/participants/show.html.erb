@@ -10,7 +10,7 @@
       Participant #<%= @participant.id %>
     </h1>
 
-  <% if !@participant.approved %>
+  <% if @participant.approved %>
     <%= link_to "Edit your Information", edit_participant_path(@participant), class: "btn btn-primary" %>
   <% else %>
     <%= link_to "View your detailed information", participant_path(@participant), class: "btn btn-primary" %>

@@ -7,6 +7,11 @@ class AdminParticipantsController < ApplicationController
     @participants = Participant.all
     # Uncomment to authorize with Pundit
     # authorize @field_visit_areas
+
+    if params[:search].present?
+      @participants = @participants.where("name ILIKE ? OR email ILIKE ?", "%#{params[:search]}%", "%#{params[:search]}%")
+    end
+    
   end
 
   def approve

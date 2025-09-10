@@ -1,0 +1,2 @@
+module PublicParticipantsHelper
+end
