@@ -3,32 +3,52 @@
 
 <div class="container px-4 mx-auto my-8">
   <div class="flex items-center justify-between mb-4">
-    <div>
-      <h1 class="h3">Hotels</h1>
-
-      <div class="text-sm font-medium">
-        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
-        <%= sortable @hotels, :name, "Name", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @hotels, :location, "Location", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @hotels, :room_numbers, "Room numbers", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-      </div>
-    </div>
-
+    <h1 class="h3">Hotels</h1>
     <%= link_to t("scaffold.new.title", model: "Hotel"), new_hotel_path, class: "btn btn-secondary" %>
   </div>
 
-  <%= tag.div id: ("hotels" if first_page?), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
-    <%= render partial: "hotels/hotel", collection: @hotels, as: :hotel, cached: true %>
-
-    <div class="hidden only:block text-center">
-      <p class="mb-4 h3">Create your first Hotel</p>
-      <%= link_to t("scaffold.new.title", model: "Hotel"), new_hotel_path, class: "btn btn-primary" %>
-    </div>
+  <div class="table-responsive">
+    <table id="hotels-datatable" class="table table-striped w-full">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Location</th>
+          <th>Total Rooms</th>
+          <th>Rooms Available</th>
+          <th>Participant Types</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @hotels.each do |hotel| %>
+          <tr>
+            <td><%= hotel.name %></td>
+            <td><%= hotel.location %></td>
+            <td><%= hotel.total_rooms %></td>
+            <td><%= hotel.rooms_available %></td>
+<td>
+  <% hotel.participant_types.each do |pt| %>
+    <span class=" rounded-pill bg-info text-dark me-1"><%= pt.type_name %></span>
   <% end %>
-
-  <% if @pagy.pages > 1 %>
-    <div class="my-6 text-center">
-      <%== pagy_nav(@pagy) %>
-    </div>
-  <% end %>
+</td>
+            <td>
+              <%= link_to "View", hotel, class: "btn btn-sm btn-info" %>
+              <%= link_to "Edit", edit_hotel_path(hotel), class: "btn btn-sm btn-warning" %>
+              <%= link_to "Delete", hotel, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-danger" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<script>
+  // Wait for the DOM to be fully loaded
+  document.addEventListener("DOMContentLoaded", function() {
+    // Check if the table element exists before initializing
+    if (document.getElementById('hotels-datatable')) {
+      new DataTable('#hotels-datatable');
+    }
+  });
+</script>

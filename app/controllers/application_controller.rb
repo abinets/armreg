@@ -15,4 +15,14 @@ class ApplicationController < ActionController::Base
   include Users::NavbarNotifications
   include Users::Sudo
   include Users::TimeZone
+
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+  before_action :authenticate_user!, unless: :devise_controller?
+
+  private
+
+  def record_not_found
+    redirect_to root_path, alert: "The requested record could not be found."
+  end
+
 end

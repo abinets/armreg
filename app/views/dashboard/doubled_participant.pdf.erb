@@ -1,0 +1,118 @@
+<%
+  # Determine the badge styling, classes, and image based on participant type
+  badge_class = 'badge'
+  text_color = '#00008B' # Dark Blue
+  serial_color = 'white'
+  rollno_color = 'blue'
+  image_name = ''
+
+  case @participant.participant_type_name
+  when "PARTNER", "PARTICIPANT"
+    badge_class = 'badge'
+    text_color = '#00008B'
+    rollno_color = 'blue'
+    image_name = '1.png'
+  when "VIP"
+    badge_class = 'badgevip'
+    text_color = '#00008B'
+    serial_color = '#999999'
+    rollno_color = '#999999'
+    image_name = '2.png'
+  when "Coordinator"
+    badge_class = 'badgecoordinator'
+    text_color = '#00008B'
+    rollno_color = 'red'
+    image_name = '3.png'
+  when "Exhibissstor"
+    badge_class = 'badgeexsshibitor'
+    text_color = '#00008B'
+    rollno_color = 'green'
+    image_name = '4.png'
+  when "Awardssssee", "Revdsdiewer"
+    badge_class = 'badge'
+    text_color = '#00008B'
+    rollno_color = 'green'
+    image_name = '5.png'
+  when "MEDIA"
+    badge_class = 'badgemoh'
+    text_color = '#00008B'
+    rollno_color = 'green'
+    image_name = '6.png'
+  when "PARTICIPANT -MoH"
+    badge_class = 'badgeparticipant'
+    text_color = '#00008B'
+    rollno_color = 'blue'
+    image_name = '7.png'
+  else
+    badge_class = 'badge'
+    text_color = '#00008B'
+    rollno_color = 'blue'
+    image_name = '8.png'
+  end
+%>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  .page-container {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .badge-container {
+    width: 330px;
+    height: 464px;
+    position: relative;
+    overflow: hidden;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    border: 6.4px solid #0976d6;
+    border-radius: 8px;
+    display: inline-block;
+  }
+  .badge-body {
+    text-align: left;
+    padding-left: 16px;
+    margin-top: 160px;
+  }
+  .qr-code-and-serial {
+    position: absolute;
+    bottom: 11.2px;
+    left: 27.2px;
+    width: 100%;
+  }
+</style>
+
+<div class="page-container">
+  <div class="badge-container" style="background-image: url(<%= wicked_pdf_asset_base64(image_name) %>);">
+    <div class="badge-body">
+      <h2 style="color:<%= text_color %>; margin: 0; font-weight: bold; font-size: 26.4px;"><%= @participant.name %></h2>
+      <p style="margin: 0; font-size: 25px; color: <%= text_color %>; font-weight: bold;"><%= @participant.position %></p>
+      <p style="margin: 0; font-size: 25px; color: <%= text_color %>; font-weight: bold;"><strong><%= @participant.orgname %></strong></p>
+    </div>
+    <div class="qr-code-and-serial">
+      <div style="float: left;">
+        <img style="width: 80px; height: 80px;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=80x80" alt="QR Code" />
+      </div>
+      <div style="float: right; padding-right: 40px;">
+        <p style="text-align: center;"> <strong style="color:<%= serial_color %>; margin: 0;"><%= @participant.serial_number %></strong></p>
+      </div>
+    </div>
+  </div><div class="badge-container" style="background-image: url(<%= wicked_pdf_asset_base64(image_name) %>);">
+    <div class="badge-body">
+   <h2 style="color:<%= text_color %>; margin: 0; font-weight: bold; font-size: 26.4px;"><%= @participant.name %></h2>
+      <p style="margin: 0; font-size: 25px; color: <%= text_color %>; font-weight: bold;"><%= @participant.position %></p>
+      <p style="margin: 0; font-size: 25px; color: <%= text_color %>; font-weight: bold;"><strong><%= @participant.orgname %></strong></p>
+    </div>
+    <div class="qr-code-and-serial">
+      <div style="float: left;">
+        <img style="width: 80px; height: 80px;" src="https://api.qrserver.com/v1/create-qr-code/?data=http://armregistration.moh.gov.et:3000/participants/detailed/<%= @participant.serial_number %>&size=80x80" alt="QR Code" />
+      </div>
+      <div style="float: right; padding-right: 40px;">
+        <p style="text-align: center;"> <strong style="color:<%= serial_color %>; margin: 0;"><%= @participant.serial_number %></strong></p>
+      </div>
+    </div>
+  </div>
+</div>

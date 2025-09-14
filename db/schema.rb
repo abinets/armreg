@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_24_221005) do
+ActiveRecord::Schema[7.2].define(version: 2025_09_13_042748) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -193,12 +193,33 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_221005) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "hotel_assignment_policies", force: :cascade do |t|
+    t.bigint "hotel_id", null: false
+    t.bigint "participant_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id"], name: "index_hotel_assignment_policies_on_hotel_id"
+    t.index ["participant_type_id"], name: "index_hotel_assignment_policies_on_participant_type_id"
+  end
+
+  create_table "hotel_participant_types", force: :cascade do |t|
+    t.bigint "hotel_id", null: false
+    t.bigint "participant_type_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["hotel_id", "participant_type_id"], name: "idx_on_hotel_id_participant_type_id_0a4d8b33ea", unique: true
+    t.index ["hotel_id"], name: "index_hotel_participant_types_on_hotel_id"
+    t.index ["participant_type_id"], name: "index_hotel_participant_types_on_participant_type_id"
+  end
+
   create_table "hotels", force: :cascade do |t|
     t.string "name"
     t.string "location"
     t.integer "room_numbers"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total_rooms"
+    t.integer "rooms_available"
   end
 
   create_table "inbound_webhooks", force: :cascade do |t|
@@ -481,7 +502,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_221005) do
     t.bigint "hotel_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 0
+    t.bigint "participant_id"
     t.index ["hotel_id"], name: "index_rooms_on_hotel_id"
+    t.index ["participant_id"], name: "index_rooms_on_participant_id"
   end
 
   create_table "side_events", force: :cascade do |t|
@@ -544,6 +568,10 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_221005) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "api_tokens", "users"
   add_foreign_key "field_visit_activities", "field_visit_areas"
+  add_foreign_key "hotel_assignment_policies", "hotels"
+  add_foreign_key "hotel_assignment_policies", "participant_types"
+  add_foreign_key "hotel_participant_types", "hotels"
+  add_foreign_key "hotel_participant_types", "participant_types"
   add_foreign_key "participants", "groups"
   add_foreign_key "participants", "organizations"
   add_foreign_key "participants", "participant_types"
@@ -555,4 +583,5 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_24_221005) do
   add_foreign_key "room_assignments", "participants"
   add_foreign_key "room_assignments", "rooms"
   add_foreign_key "rooms", "hotels"
+  add_foreign_key "rooms", "participants"
 end

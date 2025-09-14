@@ -333,10 +333,15 @@ canvas {
 }
 
 
+/* Custom styles for unassigned rows */
+tr.unassigned-row {
+  color: red !important;
+}
 
-
-
-
+tr.unassigned-row td {
+  font-weight: bold !important;
+  text-decoration: line-through !important;
+}
 
 
 

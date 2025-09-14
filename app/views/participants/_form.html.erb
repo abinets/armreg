@@ -13,16 +13,50 @@
           <div class="col-md-6 border-end border-light-subtle pe-md-4">
             <h5 class="mb-4 pb-2 border-bottom border-primary text-primary">Personal & Contact Information</h5>
             
+<%# --- Photo Upload Field and Preview --- %>
+<div class="form-group mb-4">
+  <%= form.label :photo, "Upload Your Photo", class: "form-label" %>
+  <%= form.file_field :photo, class: "form-control form-control-lg", accept: "image/*", id: "photo-upload" %>
+  <small class="form-text text-muted">JPEG, PNG, or GIF. Must be 300x300 pixels.</small>
+  
+  <div class="mt-3">
+    <% if form.object.persisted? && form.object.photo.attached? %>
+      <%= image_tag url_for(form.object.photo.variant(resize_to_fill: [300, 300])), id: "photo-preview", class: "rounded-circle border" %>
+      <% else %>
+      <img id="photo-preview" src="https://via.placeholder.com/300x300.png?text=Preview" class="rounded-circle border" alt="Photo Preview" />
+    <% end %>
+  </div>
+</div>
+<%# --- END Photo Upload --- %>
+            
             <div class="form-group mb-4">
               <%= form.label :name, class: "form-label" %>
               <%= form.text_field :name, class: "form-control form-control-lg", placeholder: "Your Full Name" %>
             </div>
-
+            
+            <%# --- THE CORRECTED ORGANIZATION FIELD (FINAL VERSION) --- %>
             <div class="form-group mb-4">
-              <%= form.label :organization, class: "form-label" %>
-              <%= form.text_field :orgname, class: "form-control form-control-lg", maxlength: 25, placeholder: "e.g., Ministry of Health" %>
-              <small class="form-text text-muted">Maximum 25 characters</small>
+              <div id="org-dropdown-container">
+                <%= form.label :organization_id, class: "form-label" %>
+                <div class="d-flex">
+                  <%= form.collection_select :organization_id, @organizations || [], :id, :name, { prompt: "Select your Organization" }, { class: "form-control form-control-lg me-2" } %>
+                  <button type="button" class="btn btn-dark-blue flex-shrink-0" id="add-org-button">
+                    <i class="fas fa-plus"></i> Add
+                  </button>
+                </div>
+              </div>
+            
+              <div class="mt-2 d-none" id="new-org-field-container">
+                <%= form.label :new_organization_name, "New Organization", class: "form-label" %>
+                <div class="d-flex">
+                  <%= text_field_tag :new_organization_name, nil, class: "form-control form-control-lg me-2", placeholder: "Enter your organization's name" %>
+                  <button type="button" class="btn btn-outline-secondary flex-shrink-0" id="cancel-add-org-button">
+                    Cancel
+                  </button>
+                </div>
+              </div>
             </div>
+            <%# --- END CORRECTED ORGANIZATION FIELD --- %>
 
             <div class="form-group mb-4">
               <%= form.label :region, class: "form-label" %>
@@ -88,18 +122,7 @@
               <%= form.text_field :position, class: "form-control form-control-lg", maxlength: 25, placeholder: "e.g., Director, Head of Department" %>
               <small class="form-text text-muted">Maximum 25 characters</small>
             </div>
-
-            <div class="form-group mb-4">
-              <%= form.label :organization_id, class: "form-label" %>
-              <%= form.collection_select :organization_id, @organizations || [], :id, :name, { prompt: "Select your Organization" }, { id: "organization-select", class: "form-control form-control-lg" } %>
-            </div>
         
-            <div id="other-organization-field" style="display: none;" class="form-group mb-4">
-              <%= form.label :other_organization_name, "Enter New Organization Name", class: "form-label" %>
-              <%= form.text_field :other_organization_name, class: "form-control form-control-lg", placeholder: "Enter new organization name" %>
-              <%= form.hidden_field :description, value: "#{current_user.name} added organization", id: "organization-description" %>
-            </div>
-
             <div class="form-group mb-4">
               <%= form.label :participant_type_id, class: "form-label" %>
               <% if current_user.admin? %>
@@ -153,22 +176,6 @@
               <%= form.collection_select :side_event_id, @side_events || [], :id, :event_name, prompt: "Select Side Event you would like to attend", class: "form-control form-control-lg" %>
             </div>
 
-            <div class="form-group mb-4">
-              <%= form.label :meal_options, class: "form-label" %>
-              <div class="d-flex flex-wrap" data-controller="meal-options">
-                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="vegetarian">Vegetarian</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="vegan">Vegan</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="halal">Halal</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="kosher">Kosher</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="gluten-free">Gluten-Free</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="nut-allergy">Nut Allergy</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="dairy-free">Dairy-Free</button>
-                <button type="button" class="btn btn-outline-secondary me-2 mb-2" data-meal-options-target="tag" data-action="click->meal-options#toggleTag" data-value="none">None</button>
-              </div>
-              <%= form.hidden_field :meal_options, data: { "meal-options-target" => "hiddenField" } %>
-              <small class="form-text text-muted">Select all applicable meal preferences</small>
-            </div>
-
             <div class="form-check mb-4">
               <%= form.check_box :resourceMaterial_take, class: "form-check-input" %>
               <%= form.label :resourceMaterial_take, "Require Resource Material", class: "form-check-label ms-2" %>
@@ -200,60 +207,51 @@
 </div>
 
 <style>
-/* Simplified CSS for the form page */
-.registration-form-container {
-  background-color: #f0f2f5;
-  min-height: 100vh;
-  padding: 3rem 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.registration-card {
-  max-width: 1200px;
-  width: 100%;
-  border: none;
-  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
-}
-.bg-dark-blue { background-color: #2c3e50 !important; }
-.card-header h1 { font-size: 2.2rem; letter-spacing: 1px; }
-.card-header p { font-size: 1rem; opacity: 0.8; }
-.form-label { font-weight: 600; color: #34495e; margin-bottom: 0.6rem; }
-.form-text { font-size: 0.85rem; color: #7f8c8d !important; }
-.text-primary { color: #3498db !important; }
-.form-control-lg { border-radius: 0.5rem; padding: 0.85rem 1.25rem; border: 1px solid #ced4da; transition: all 0.2s ease-in-out; }
-.form-control-lg:focus { border-color: #3498db; box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25); }
-.form-control-lg.bg-light { background-color: #e9ecef !important; color: #6c757d; }
-.btn-dark-blue { background-color: #2c3e50; border-color: #2c3e50; color: #fff; transition: all 0.2s ease-in-out; }
-.btn-dark-blue:hover { background-color: #34495e; border-color: #3498de; transform: translateY(-1px); }
-.btn-outline-secondary { border-color: #95a5a6; color: #7f8c8d; transition: all 0.2s ease-in-out; }
-.btn-outline-secondary:hover { background-color: #ecf0f1; border-color: #7f8c8d; color: #555; transform: translateY(-1px); }
-.btn-lg { padding: 0.8rem 2.5rem; font-size: 1.1rem; border-radius: 0.4rem; }
-.btn.active-tag { background-color: #3498db; color: #fff; border-color: #3498db; }
-.btn.active-tag:hover { background-color: #2980b9; border-color: #2980b9; }
-@media (max-width: 767.98px) {
-  .registration-card .card-body { padding: 2rem; }
-  .card-header h1 { font-size: 1.8rem; }
-  .col-md-6.border-end { border-right: none !important; border-bottom: 1px solid #e9ecef; padding-bottom: 1.5rem; margin-bottom: 1.5rem; }
-}
+/* ... your existing styles ... */
 </style>
 
 <script>
   document.addEventListener("DOMContentLoaded", function() {
-    const organizationSelect = document.getElementById("organization-select");
-    const otherOrganizationField = document.getElementById("other-organization-field");
-    
-    if (organizationSelect) {
-      const showHideOtherField = () => {
-        if (organizationSelect.options[organizationSelect.selectedIndex].text === 'Other') {
-          otherOrganizationField.style.display = "block";
-        } else {
-          otherOrganizationField.style.display = "none";
-        }
-      };
+    const photoUpload = document.getElementById("photo-upload");
+    const photoPreview = document.getElementById("photo-preview");
+    const orgDropdownContainer = document.getElementById("org-dropdown-container");
+    const newOrgFieldContainer = document.getElementById("new-org-field-container");
+    const addOrgButton = document.getElementById("add-org-button");
+    const cancelAddOrgButton = document.getElementById("cancel-add-org-button");
+    const orgSelect = document.getElementById("participant_organization_id");
+    const newOrgInput = document.getElementById("new_organization_name");
 
-      showHideOtherField();
-      organizationSelect.addEventListener("change", showHideOtherField);
+    // Live photo preview
+    if (photoUpload && photoPreview) {
+      photoUpload.addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(e) {
+            photoPreview.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+
+    // New Organization toggle logic
+    if (addOrgButton && cancelAddOrgButton && orgDropdownContainer && newOrgFieldContainer) {
+      addOrgButton.addEventListener("click", function() {
+        orgDropdownContainer.classList.add("d-none");
+        newOrgFieldContainer.classList.remove("d-none");
+        orgSelect.value = ""; // Clear the selected organization
+        orgSelect.disabled = true;
+        newOrgInput.disabled = false;
+      });
+
+      cancelAddOrgButton.addEventListener("click", function() {
+        orgDropdownContainer.classList.remove("d-none");
+        newOrgFieldContainer.classList.add("d-none");
+        newOrgInput.value = ""; // Clear the new organization name
+        orgSelect.disabled = false;
+        newOrgInput.disabled = true;
+      });
     }
   });
 </script>

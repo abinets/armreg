@@ -1,48 +1,50 @@
 <div class="mb-4">
   <div class="card">
     <div class="card-body">
-    <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Hotel</p>
-    <%= room.hotel_name %>
-  </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Room number</p>
-    <%= room.room_number %>
-  </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Room type</p>
-    <%= room.room_type %>
-  </div>
-  <div class="mb-4">
-    <p class="text-sm font-medium text-gray-500">Floor</p>
-    <%= room.floor %>
-  </div>
-  <div>
-    <% if room.room_assignments.exists? && room.room_assignments.any? { |assignment| assignment.status == RoomAssignment::STATUS_ASSIGNED } %>
-      <% assignment = room.room_assignments.find { |a| a.status == RoomAssignment::STATUS_ASSIGNED } %>
       <div class="mb-4">
-        <p class="text-sm font-medium text-gray-500">Assigned to:</p>
-        <p><%= assignment.participant.name %> (Organization: <%= assignment.participant.organization.name if assignment.participant.organization %>)</p>
+        <p class="text-sm font-medium text-gray-500">Hotel</p>
+        <%= room.hotel_name %>
       </div>
-      <%= link_to "View this room", room, class: "btn btn-secondary" %>
-      <%= link_to "Unassign #{assignment.participant.name}", unassign_room_assignment_path(assignment), data: { turbo_method: :patch, confirm: "Are you sure you want to unassign this participant?" }, class: "btn btn-danger", rel: "nofollow" %>
-    <% else %>
-      <%= link_to "View this room", room, class: "btn btn-secondary" %>
-      <%= link_to 'Assign to Participant', new_room_assignment_path(participant_id: params[:participant_id], room_id: room.id), method: :get, class: "btn btn-primary" %>
-    <% end %>
-  </div>
+      <div class="mb-4">
+        <p class="text-sm font-medium text-gray-500">Room number</p>
+        <%= room.room_number %>
+      </div>
+      <div class="mb-4">
+        <p class="text-sm font-medium text-gray-500">Room type</p>
+        <%= room.room_type %>
+      </div>
+      <div class="mb-4">
+        <p class="text-sm font-medium text-gray-500">Floor</p>
+        <%= room.floor %>
+      </div>
+      <div>
+        <%#
+          Old code was inefficient. We'll now use a single database query
+          to check for any assigned room assignments.
+        %>
+        <% if room.room_assignments.assigned.exists? %>
+          <%#
+            Find the first assigned room assignment.
+            This is also a single, efficient database query.
+          %>
+          <% assignment = room.room_assignments.assigned.first %>
+          <div class="mb-4">
+            <p class="text-sm font-medium text-gray-500">Assigned to:</p>
+            <p><%= assignment.participant.name %> (Organization: <%= assignment.participant.organization.name if assignment.participant.organization %>)</p>
+          </div>
+          <%= link_to "View this room", room, class: "btn btn-secondary" %>
+          <%= link_to "Unassign #{assignment.participant.name}", unassign_room_assignment_path(assignment), data: { turbo_method: :patch, confirm: "Are you sure you want to unassign this participant?" }, class: "btn btn-danger", rel: "nofollow" %>
+        <% else %>
+          <%= link_to "View this room", room, class: "btn btn-secondary" %>
+          <%# 
+            The `assign` button should pass the `room_id` to the form.
+            The `participant_id` should not be passed here unless you're
+            coming from a specific participant's page.
+          %>
+          <%= link_to 'Assign to Participant', new_room_assignment_path(room_id: room.id), class: "btn btn-primary" %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>
-
-
-
-<script>
-  document.getElementById('ajax-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent default form submission
-
-    // Use Rails UJS to handle the form submission
-    Rails.start();
-    Rails.handleRemote(this);
-  });
-</script>
+ 

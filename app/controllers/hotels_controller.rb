@@ -77,11 +77,15 @@ class HotelsController < ApplicationController
     redirect_to hotels_path
   end
 
-  # Only allow a list of trusted parameters through.
-  def hotel_params
-    params.require(:hotel).permit(:name, :location, :room_numbers)
+  # # Only allow a list of trusted parameters through.
+  # def hotel_params
+  #   params.require(:hotel).permit(:name, :location, :room_numbers)
 
-    # Uncomment to use Pundit permitted attributes
-    # params.require(:hotel).permit(policy(@hotel).permitted_attributes)
+  #   # Uncomment to use Pundit permitted attributes
+  #   # params.require(:hotel).permit(policy(@hotel).permitted_attributes)
+  # end
+
+    def hotel_params
+    params.require(:hotel).permit(:name, :location, :total_rooms, :rooms_available, participant_type_ids: [])
   end
 end

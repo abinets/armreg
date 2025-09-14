@@ -1,4 +1,7 @@
 class DashboardController < ApplicationController
+
+ rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   def show
 
     @total_participants = Participant.count
@@ -26,6 +29,10 @@ def doubled_participant
 end
 
 
+ 
+
+
+
   def download_pdf
     @participant = Participant.find(params[:id])
     
@@ -34,7 +41,7 @@ end
       format.pdf do
         render pdf: "badge_#{@participant.serial_number}",
                template: "dashboard/doubled_participant",
-               layout: false # To prevent Rails from looking for a separate PDF layout
+               layout: false
       end
     end
   end
@@ -63,6 +70,12 @@ def doubled
                orientation: 'Portrait' # Orientation
       end
     end
+  end
+
+  private
+
+  def record_not_found
+    redirect_to custom_error_path, alert: "The requested record could not be found."
   end
 
 end

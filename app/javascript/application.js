@@ -9,7 +9,8 @@ import "./controllers"
 import "./src/**/*"
 import "@hotwired/turbo-rails" 
 import './custom_ujs';
-
+import "select2"
+import "select2/dist/css/select2.css"
 
 // import Rails from '@rails/ujs';
 // Rails.start();

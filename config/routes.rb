@@ -9,12 +9,16 @@ Rails.application.routes.draw do
   # end
  
 
-  resources :room_assignments do
-    member do
-      patch :unassign 
-      patch :assign 
-    end
+resources :room_assignments do
+  member do
+    patch :unassign 
+    patch :assign 
   end
+  # This is the new part you need to add.
+  collection do
+    get :rooms_by_participant_type
+  end
+end
 
   # resources :public_participants, only: [:show], path: 'participants'
 
@@ -35,7 +39,9 @@ Rails.application.routes.draw do
   resources :field_visit_areas
   resources :groups
   resources :participant_types
-  resources :organizations
+  resources :organizations  do
+    post :create_from_form, on: :collection
+  end
   resources :rooms do
     resources :room_assignments 
   end
@@ -110,6 +116,8 @@ Rails.application.routes.draw do
   end
 
   
+  get 'custom_error', to: 'static_pages#not_found', as: 'custom_error'
+
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

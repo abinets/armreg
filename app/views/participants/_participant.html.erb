@@ -6,6 +6,16 @@
     </div>
     <div class="card-body p-4 p-md-5">
 
+      <%# --- NEW: Photo Display Section --- %>
+      <div class="d-flex justify-content-center mb-5">
+        <% if participant.photo.attached? %>
+          <%= image_tag url_for(participant.photo.variant(resize_to_fill: [300, 300])), class: "rounded-circle shadow-lg border-4 border-primary", style: "border-color: #3498db !important; width: 300px; height: 300px;" %>
+        <% else %>
+          <img src="https://via.placeholder.com/300x300.png?text=No+Photo" class="rounded-circle shadow-lg border-4 border-muted" style="width: 300px; height: 300px;" alt="No Photo" />
+        <% end %>
+      </div>
+      <%# --- END NEW: Photo Display Section --- %>
+
       <div class="row align-items-center mb-5 pb-4 border-bottom border-light-subtle">
           <div class="col-md-6 mb-3 mb-md-0">
               <h2 class="display-6 fw-bold text-dark-blue mb-1"><%= participant.name %></h2>

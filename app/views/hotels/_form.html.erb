@@ -16,6 +16,11 @@
     <%= form.number_field :room_numbers, class: "form-control" %>
   </div>
 
+    <div class="field">
+    <%= form.label :participant_types, "Eligible Participant Types" %>
+    <%= form.collection_select :participant_type_ids, ParticipantType.all, :id, :type_name, {}, { multiple: true, class: "form-control" } %>
+  </div>
+
   <div>
     <%= form.button button_text(form.send(:submit_default_value)), class: "btn btn-primary" %>
 

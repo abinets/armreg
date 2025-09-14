@@ -43,6 +43,17 @@ class OrganizationsController < ApplicationController
     end
   end
 
+    def create_from_form
+    @organization = Organization.new(name: params[:name])
+
+    if @organization.save
+      render json: { success: true, id: @organization.id, name: @organization.name }
+    else
+      render json: { success: false, errors: @organization.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  
   # PATCH/PUT /organizations/1 or /organizations/1.json
   def update
     respond_to do |format|

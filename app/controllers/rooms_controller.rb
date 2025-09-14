@@ -3,6 +3,8 @@ class RoomsController < ApplicationController
 
   # GET /rooms
   def index
+   @rooms = Room.includes(room_assignments: :participant)
+
     @pagy, @rooms = pagy(Room.sort_by_params(params[:sort], sort_direction))
 
     # Uncomment to authorize with Pundit
@@ -65,6 +67,13 @@ class RoomsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to rooms_url, status: :see_other, notice: "Room was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def assigned_participant_info
+    assignment = room_assignments.find_by(status: :assigned)
+    if assignment.present? && assignment.participant.present?
+      "Assigned to: #{assignment.participant.name} (Organization: #{assignment.participant.organization&.name})"
     end
   end
 

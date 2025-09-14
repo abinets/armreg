@@ -3,35 +3,91 @@
 
 <div class="container px-4 mx-auto my-8">
   <div class="flex items-center justify-between mb-4">
-    <div>
-      <h1 class="h3">Room Assignments</h1>
-
-      <div class="text-sm font-medium">
-        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
-        <%= sortable @room_assignments, :participant_id, "Participant", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @room_assignments, :room_id, "Room", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @room_assignments, :arrived_date, "Arrived date", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @room_assignments, :checkin_date, "Checkin date", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @room_assignments, :checkout_date, "Checkout date", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @room_assignments, :notes, "Notes", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-      </div>
-    </div>
-
+    <h1 class="h3">Room Assignments</h1>
     <%= link_to t("scaffold.new.title", model: "Room Assignment"), new_room_assignment_path, class: "btn btn-secondary" %>
   </div>
  
-  <%= tag.div id: ("room_assignments" if first_page?), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
-    <%= render partial: "room_assignments/room_assignment", collection: @room_assignments, as: :room_assignment, cached: true %>
-
-    <div class="hidden only:block text-center">
-      <p class="mb-4 h3">Create your first Room Assignment</p>
-      <%= link_to t("scaffold.new.title", model: "Room Assignment"), new_room_assignment_path, class: "btn btn-primary" %>
+  <div class="p-6 bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-lg shadow-md mb-8">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Room Stats</h2>
+    
+    <div class="flex items-center text-sm font-medium text-gray-700 dark:text-gray-300 mb-4 space-x-4">
+      <span class="font-bold">Total:</span>
+      <span class="text-indigo-600 dark:text-indigo-400"><%= @total_rooms %></span>
+      <span class="text-gray-400 dark:text-gray-600">|</span>
+      
+      <span class="font-bold">Assigned:</span>
+      <span class="text-indigo-600 dark:text-indigo-400"><%= @assigned_rooms %></span>
+      <span class="text-gray-400 dark:text-gray-600">|</span>
+      
+      <span class="font-bold">Unassigned:</span>
+      <span class="text-indigo-600 dark:text-indigo-400"><%= @total_rooms - @assigned_rooms %></span>
     </div>
-  <% end %>
+    
+    <hr class="my-4 border-gray-200 dark:border-gray-700">
 
-  <% if @pagy.pages > 1 %>
-    <div class="my-6 text-center">
-      <%== pagy_nav(@pagy) %>
+    <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Rooms per Hotel</h3>
+    <div class="flex flex-wrap items-center text-sm text-gray-600 dark:text-gray-400 -m-2">
+      <% @hotels.each_with_index do |hotel, index| %>
+        <div class="p-2">
+          <span class="font-semibold"><%= hotel.name %>:</span>
+          <span><%= hotel.rooms.count %> total (<%= hotel.rooms.available.count %> available)</span>
+        </div>
+        <% if index < @hotels.count - 1 %>
+          <span class="text-gray-400 dark:text-gray-600">|</span>
+        <% end %>
+      <% end %>
     </div>
-  <% end %>
+  </div>
+
+  <div class="table-responsive">
+    <table id="room-assignments-datatable" class="table table-striped w-full">
+      <thead>
+        <tr>
+          <th>Participant</th>
+          <th>Room Number</th>
+          <th>Hotel</th>
+          <th>Arrived Date</th>
+          <th>Check-in Date</th>
+          <th>Check-out Date</th>
+          <th>Notes</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @room_assignments.each do |room_assignment| %>
+          <tr style="<%= 'color: red;' if room_assignment.unassigned? %>">
+            <td><%= room_assignment.participant_name %></td>
+            <td style="<%= 'font-weight: bold; text-decoration: line-through;' if room_assignment.unassigned? %>"><%= room_assignment.room_name %></td>
+            <td style="<%= 'font-weight: bold; text-decoration: line-through;' if room_assignment.unassigned? %>"><%= room_assignment.hotel_name %></td>
+            <td><%= room_assignment.arrived_date %></td>
+            <td><%= room_assignment.checkin_date %></td>
+            <td><%= room_assignment.checkout_date %></td>
+            <td><%= room_assignment.notes %></td>
+            <td>
+              <%= room_assignment.status.capitalize %>
+            </td>
+            <td>
+              <%= link_to 'View', room_assignment, class: 'btn btn-sm btn-info', data: { turbo: false } %>
+              <%= link_to 'Edit', edit_room_assignment_path(room_assignment), class: 'btn btn-sm btn-warning', data: { turbo: false } %>
+              
+              <%# --- The Unassign button, only shown if status is assigned --- %>
+              <%= button_to 'Unassign', unassign_room_assignment_path(room_assignment),
+                  method: :patch,
+                  data: { turbo: false, confirm: 'Are you sure you want to unassign this room?' },
+                  class: 'btn btn-sm btn-secondary' if room_assignment.assigned? %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    if (document.getElementById('room-assignments-datatable')) {
+      new DataTable('#room-assignments-datatable');
+    }
+  });
+</script>
